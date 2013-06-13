@@ -1,0 +1,11 @@
+<% if @result[:result] == 'ACK' %>
+  $("#staff_selector").slideUp("slow");
+	$("#customer_info_panel").hide("slow");
+	$("#event_summary_panel").hide("slow");
+	$("#customer_summary_panel").hide("slow");
+	$("#credit_card_panel").hide("slow");
+	$("#confirm_panel").load("customer_booking/init_confirm_screen");
+<% else %>
+  $("#credit_card_message").hide("slow");
+  $("#credit_card_message").html("<%= @result[:status][:text] %>").fadeIn();
+<% end %>

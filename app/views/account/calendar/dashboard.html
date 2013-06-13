@@ -1,0 +1,34 @@
+<div style="padding-bottom:40px;">
+  <%= t :welcome %>
+</div>
+
+<hr>
+
+<% if current_user.is_customer? %>
+  <% if current_user.appointments.empty? %>
+  <%= t 'no_new_appts' %>
+  <% else %>
+     <%= link_to "You have #{current_user.appointments.length} new Appointments", "#", :class => "side_menu", "data-path" => "/account/events/appt_customers" %>
+  <% end%>
+
+<% else %>
+  <% if @company.appointments.empty? %>
+  <%= t 'no_new_appts' %>
+  <% else %>
+   <%= link_to "You have #{@company.appointments.length} new Appointments", "#", :class => "side_menu", "data-path" => "/account/events/todays" %>
+  <% end%>
+
+  <hr width="20%">
+  <% unless @company.reviews.empty? %>
+  You have <%= @company.reviews.length%> <%= link_to "new Reviews", "#", :class => "side_menu", "data-path" => "/account/reviews" %>
+  <% end%>
+
+  <hr>
+  Get more customers by sharing it
+  <br/><br/>
+  <%= link_to "Facebook", "http://www.facebook.com/sharer.php?u=#{@company.subdomain_url}", :target => "_blank" %>
+  <br/><br/>
+  <%= link_to "Twitter", "http://twitter.com/share?text=#{@company.name}&url=#{@company.subdomain_url}", :target => "_blank" %>
+  <br/>
+<% end %>
+

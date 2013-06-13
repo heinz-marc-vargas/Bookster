@@ -1,0 +1,18 @@
+<% 
+
+unless @user.errors.messages.empty? %>
+	html = "<ul class='unstyled alert alert-error'>";
+	<% @user.errors.messages.each do |err| %>
+
+	html += "<li><%= err.first.to_s.titleize %> <%= err[1].first %></li>";
+	<% end%>
+	html += "</ul>";
+	$(".errors").html(html);
+	$(".errors").show();
+
+	$('body,html').animate({ scrollTop: 0}, 500);
+		
+<% else %>
+  $('#contentwrapper .main_content').load("/account/staffs");
+<% end %>
+

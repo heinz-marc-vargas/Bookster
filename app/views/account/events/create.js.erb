@@ -1,0 +1,13 @@
+<% if @event.errors.any? -%>
+  /*Hide the flash notice div*/
+  $("#flash_notice").hide(300);
+
+  /*Update the html of the div post_errors with the new one*/
+  $("#post_errors").html("<%= escape_javascript(error_messages_for(@post))%>");
+
+  /*Show the div post_errors*/
+  $("#post_errors").show(300);
+<% else -%>
+  /*Replace the html of the div post_lists with the updated new one*/
+  $("#event_list").html("<%= escape_javascript(render(:partial => 'event_list')) %>");
+<% end -%>

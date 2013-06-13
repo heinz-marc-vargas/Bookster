@@ -1,0 +1,7 @@
+<% if @user.errors.any? %>
+  Application.render_content(<%= render('users/edit').to_json.html_safe %>);
+<% else %>
+  Application.load_content(
+    "<%= users_path %>"
+  );
+<% end %>

@@ -1,0 +1,11 @@
+<% unless @company.nil? %>
+  $(".admin-submenu li").each(function(index) {
+    if (index != 0 ) {
+      $(this).remove();
+    }
+  });
+  
+  $(".admin-submenu").append("<%= escape_javascript(render("/layouts/admin_submenu")).html_safe %>").hide().fadeIn('slow'); 
+  $('#main .main_content').load("/account/branches?id=<%= @company.id %>");
+  $(".current_company").text("<%= @company.name %>").show();
+<% end %>

@@ -1,0 +1,30 @@
+<div id="left">
+  
+	<% case current_user.role.to_s %>
+	<% when "admin"%>
+	  <%= render "layouts/admin_sidemenu"%>
+	<% when "owner", "staff" %>
+  <%= render "layouts/owner_sidemenu"%>
+  <% when "customer"%>
+	  <%= render "layouts/customer_sidemenu"%>
+	<% end %>
+  
+</div>
+
+<script type="text/javascript">
+
+  $('.side_menu').live('click', function() {
+    if(typeof $(this).data("path") != 'undefined') {
+      $(".subnav-menu li").each(function(index){
+        $(this).removeClass("active");
+      });
+      
+      $(this).closest("li").addClass('active');
+      Application.load_content($(this).data("path"));
+    }
+  });
+
+  <% unless params[:path].nil? %>
+    Application.load_content($(this).data("<%= params[:path] %>"));
+  <% end %>
+</script>

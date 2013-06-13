@@ -1,0 +1,8 @@
+%h2
+  = t :user 
+  .tableactions{:style=>"float:right;"}
+    - if can? :manage, User
+      = link_to_function t(:user_new), "Application.load_content('#{new_user_path}')", :class => 'btn'
+    = link_to_function t(:refresh), "Application.load_content('#{users_path}')", :class => 'btn'
+    
+    

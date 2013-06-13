@@ -1,0 +1,16 @@
+<% if @branch == branch
+  style = "border-style: solid; border-color: #56C0F5; border-bottom: 10px solid #56C0F5; margin: 0px 0px 15px 0px; padding:5px ;"
+else
+  style = "border: 1px solid #EDEDED; margin-bottom: 15px; padding:5px ;"
+end
+%>
+
+<div style="<%= style %>; cursor:pointer" class="branch-box" data-link="<%= root_path(:bid => branch.id, :step => 1) %>">
+  <a href="#">
+    <%= image_tag branch.branch_logo.url(:thumb)%>
+    <%= link_to branch.name.humanize, root_path(:bid => branch.id, :step => 1) %>
+
+    <br/>
+    <span class="mini"><%= branch.address %></span>
+  </a>
+</div>

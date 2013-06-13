@@ -1,0 +1,19 @@
+console.log("here");
+<% if @company.errors.empty? %>
+  <% if @saved %>
+  	$.sticky("<%= t('.saved_successfully')%>", {autoclose : 5000, position: "top-right", type: "st-success" });
+  <% end %>
+	$(".company-progress-status").attr("data-id", "<%= @company.progress_status %>")  
+
+<% else %>
+	html = "<ul class='unstyled alert alert-error'>";
+  <% @company.errors.messages.each do |err| %>
+  	html += "<li><%= err.first.to_s.titleize %> <%= err[1].first %></li>";
+  <% end%>
+  html += "</ul>";
+  $(".errors").html(html);
+  $(".errors").show();
+  
+	$('body,html').animate({ scrollTop: 0}, 500);
+<% end %>
+

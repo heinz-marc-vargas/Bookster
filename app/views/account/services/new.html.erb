@@ -1,0 +1,29 @@
+<%= render('/account/services/new') %>
+
+<script>
+	$("#new_service").submit(function(){
+		if (!$(this).validate()) {
+			return false;
+		}
+		
+		$(".alert").hide();
+		checked = 0;
+		
+		$.each($(".staff"), function(key, value) {
+			if (value.checked) {
+				checked += 1;
+			}
+			
+			if (checked == 0){
+				$(".alert").show();
+				return false;
+			}else{
+				$(".alert").hide();
+			}
+		});
+		
+		return true;
+
+	})
+  
+</script>

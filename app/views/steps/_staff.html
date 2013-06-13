@@ -1,0 +1,31 @@
+<li style="border: 1px solid #ccc; width: 300px; height: 60px; float: left; margin: 10px; padding: 10px;">
+	
+	<div style="float: left; border: 0px solid #ccc; width: 80px; height: 80px; text-align:center"> 
+		<%= image_tag staff.user.avatar.url, :style => "width: 50px; height: 50px; padding-bottom: 0px;", :id=> "avatar-image-#{staff.id}" %>
+		<%= form_tag avatar_steps_path(:id => staff.id), :id => "upload-avatar", :class => "upload-avatar-#{staff.id}" do %>
+		  <%= label_tag :avatar, "avatar", :class => "btn btn-mini btn-primary upload-avatar-btn", "data-id" => staff.id %>
+		  <%= file_field_tag :avatar, multiple: false, name: "avatar", :id => "avatar-#{staff.id}", :style => "height: 0px; width: 0px;overflow:hidden;" %>
+		<% end %>
+	</div>
+	
+	<%= link_to staff.user.full_name.titleize, editstaff_steps_path(:id => staff.id), :class => "sl_name", :style => "font-size: 14px;", 'data-target' => "#editstaffModal", :role => "button", "data-toggle" => "modal" %>
+
+	<br/>
+	<small class="s_color sl_email" style="color:#9b9b9b;"> <%= staff.user.email%> </small>
+</li>
+
+<script>
+$(function () {
+  $('.upload-avatar-<%= staff.id %>').fileupload({
+      dataType: 'script',
+      done: function (e, data) {
+          $.each(data.result.files, function (index, file) {
+          		console.log(file);
+          		console.log(index);
+              //$('<p/>').text(file.name).appendTo(document.body);
+          });
+      }
+  });
+
+});
+</script>

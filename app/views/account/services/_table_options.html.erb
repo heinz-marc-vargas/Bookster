@@ -1,0 +1,25 @@
+<h2><%= t :services %></h2>
+
+<div class="head_actions">
+	<% if can?(:delete, Service) %>
+	  <%= select_tag "action_id", "<option value=0>Delete</option>".html_safe, :class => "select_action" %>
+
+    <input type="submit" class="btn" value="<%= t :apply_to_selected %>" />
+  <% end %>
+
+  <% if can?(:add, Service) %>
+    <input id="add" type="button" class="btn" value="<%= t :service_new %>" />&nbsp;
+  <% end %>
+
+  <input id="back" type="button" class="btn" value="<%= t :refresh %>" />&nbsp;
+</div>
+
+<script>
+	$('#add').click(function() {
+		Application.load_content("<%= new_account_service_path %>");
+	});
+
+	$('#back').click(function() {
+		Application.load_content("<%= account_services_path %>");
+	});
+</script>

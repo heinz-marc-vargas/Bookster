@@ -1,0 +1,103 @@
+<div class="textbox">
+	<h2>
+		<%= t :service_details %>
+	  <div class="tableactions" style="float:right;"><input id="back" type="button" class="btn btn-primary" value="<%= t :back_to_list %>" /></div>
+
+	  <% if can?(:update, @service) %>
+	    <div class="tableactions" style="float:right;"><input id="edit" type="button" class="btn btn-primary" value="<%= t :service_edit %>" />&nbsp;&nbsp;</div>
+	  <% end %>
+
+	  <div class="tableactions" style="float:right;"><input id="refresh" type="button" class="btn btn-primary" value="<%= t :refresh %>" />&nbsp;&nbsp;</div>
+	</h2>
+	<div class="textbox_content">
+    <div style="float:right;margin:10px;">	
+			<%= image_tag((@service.branch.company.logo.nil? ? "logos/default_company_logo.jpg" : @service.branch.company.logo.url), :size=>"150x50") %>
+    </div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :name %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @service.name %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :description %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @service.description %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :duration %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @service.duration %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :price %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @service.charge %>&nbsp;</span>
+		</div>
+
+    <br />
+    <hr />
+		<% if @service.staff.count == 0 %>
+		<div class="message warning"><p><%= t :service_no_services %></p></div>
+		<% else %>	
+    <h3><%= t :staff %>:</h3>
+    <div>
+			<table class="table table-striped table-bordered dTableR">
+				<thead>
+				<tr>
+					<th><%= t :photo %></th>
+					<th><%= t :name %></th>
+				</tr>
+				</thead>
+				<tbody>
+				<% @service.staff.each do |s| %>
+				<tr>
+				  <td><%= image_tag(s.photo.nil? ? "staff/default.jpg" : "staff/" + s.id.to_s + s.photo, { :size=>"30x30" }) %></td>
+					<td><%= s.full_name %></td>
+				</tr>
+				<% end %>
+				</tbody>
+			</table>
+	  </div>
+	  <% end %>
+		<% if @service.events.count == 0 %>
+		<div class="message warning"><p><%= t :service_no_appointments %></p></div>
+		<% else %>	
+    <h3><%= t :appointment %>:</h3>
+		<div>
+			<table class="table table-striped table-bordered dTableR">
+				<thead>
+				<tr>
+					<th><%= t :branch %></th>
+					<th><%= t :service %></th>
+					<th><%= t :service %></th>
+					<th><%= t :customer %></th>
+					<th><%= t :time %></th>
+					<th><%= t :duration %></th>
+					<th></th>
+				</tr>
+				</thead>
+				<tbody>
+				<% @service.events.each do |event| %>
+				<tr>
+					<td><%= event.service.branch.name rescue "N/A" %></td>
+					<td><%= event.service.name rescue "N/A" %></td>
+					<td><%= event.service.full_name rescue "N/A" %></td>
+					<td><%= event.customer.full_name rescue "N/A" %></td>
+					<td><%= event.appointment_date %></td>
+					<td><%= event.appointment_span %></td>
+					<td><%= event.duration %></td>
+				</tr>
+				<% end %>
+				</tbody>
+			</table>
+		</div>
+		<% end %>	
+	</div>	
+</div>
+<script>
+	$('#back').click(function() {
+		Application.load_content("<%= account_services_path %>");
+	});
+	$('#refresh').click(function() {
+		Application.load_content("<%= account_service_path(@service.id) %>");
+	});
+	$('#edit').click(function() {
+		Application.load_content("<%= edit_account_service_path(@service.id) %>");
+	});
+</script>

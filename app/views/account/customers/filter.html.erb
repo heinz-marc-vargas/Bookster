@@ -1,0 +1,15 @@
+<% if @success %>
+  <div class="alert alert-success">
+  	<a class="close" data-dismiss="alert">x</a>
+  	<p><%= @success %></p>
+  </div>
+<% end %>
+
+<%= form_tag({:action => :mass_update}, { :class => "button_to" }) do |f| %>
+<div class="textbox">
+  <%= render :partial => "table_options" %>
+	<div id="customer_list" class="textbox_content">
+    <%= render :partial => "customer_list" %>
+	</div>
+</div>
+<% end %>

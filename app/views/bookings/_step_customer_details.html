@@ -1,0 +1,152 @@
+<div class="span9">
+  <% if current_user.nil? %>
+    <h4>
+      Create an Account
+    </h4>
+    <p>This will help you manage your appointments</p>
+  
+    <div class="clearfix"></div>
+
+    <%= iloader("loader") %>
+  
+    <div class="customer-form-div" style="padding: 10px 10px 10px 30px;">
+      <% unless flash[:error].nil? %>
+      <div class="alert alert-error"><%= flash[:error]%></div>
+      <% end %>
+    
+      <!--
+      Who will be attending the appointment?
+      <br/>
+      <%= radio_button_tag :who_attend, "me", true, :class => "attend_me"%> Me
+      <br/>
+      <%= radio_button_tag :who_attend, "me", false, :class => "attend_someone"%> Someone else
+        -->
+    
+      <%= form_for :user, :url => create_customer_bookings_path, :html => { :id => "customer-form" } do |f| %>
+      <%= hidden_field_tag :bid, params[:bid] %>
+      <%= hidden_field_tag :sid, params[:sid] %>
+      <%= hidden_field_tag :staffid, params[:staffid] %>
+      <%= hidden_field_tag :date, params[:date] %>
+      <%= hidden_field_tag :time, params[:time] %>
+    
+      <div data-error="" class="cf row">
+  			<label>Email Address</label>
+  			<div class="">
+  				<%= f.text_field :email, {:required => true, :class => "email-new email uniqueEmail" }%>
+          <%= loader("email-new-loader")%>
+  			</div>
+  		</div>
+
+      <div data-error="" class="cf row">
+  			<label>Password</label>
+  			<div class="">
+  				<%= f.password_field :password, {:required => true }%>
+  			</div>
+  		</div>
+
+
+      <div data-error="" class="cf row">
+  			<label>Name</label>
+  			<div class="">
+  				<%= f.text_field :first_name, :placeholder => "First", :required => true %>
+  			</div>
+  			<div class="">
+  				<%= f.text_field :last_name, :placeholder => "Last",  :required => true %>
+  			</div>
+  		</div>
+    
+      <div data-error="" class="cf row">
+  			<label>Date of Birth</label>
+  			<div class="span1">
+          <%= text_field_tag "user[dob_mm]", nil, :placeholder => "MM", :class => "span1 number", :maxlength => 2 %>
+        </div>
+        <div class="span1">
+          <%= text_field_tag "user[dob_dd]", nil, :placeholder => "DD", :class => "span1 number", :maxlength => 2 %>
+        </div>
+        <div class="span1">
+          <%= text_field_tag "user[dob_yy]", nil, :placeholder => "YYYY", :class => "span1 number", :maxlength => 4 %>
+  			</div>
+  		</div>
+    
+      <div data-error="" class="cf row">
+  			<label>Telephone Number</label>
+  			<div class="">
+  				<%= text_field_tag "user[telno]", nil, :class => "validTelno", :required => true %>
+  			</div>
+  		</div>
+
+      <div data-error="" class="cf row">
+  			<label>Gender</label>
+  			<div class="span5">
+  				<%= f.radio_button :gender, "male", "checked" => "checked", :required => true, :class => "span1" %> Male
+          <br/>
+          <%= f.radio_button :gender, "male", :required => true, :class => "span1" %> Female
+        </div>
+  		</div>
+    
+      <div data-error="" class="cf row">
+  			<label>Terms & Conditions</label>
+  			<div class="">
+  				<%= check_box_tag :agree, 1 %> I agree with the <%= link_to "Terms & Conditions", "#", :required => true %>
+  			</div>
+  		</div>
+    
+      <%= submit_tag "Submit", :class => "tn btn-primary btn-large submit-btn" %>
+
+      <% end %>
+    </div>
+  <% else %>
+    <h4>Use my information</h4>
+
+    <% unless flash[:error].nil? %>
+    <div class="alert alert-error"><%= flash[:error]%></div>
+    <% end %>    
+    
+    <ul class="unstyled">
+      <li>Name: <%= current_user.full_name %> </li>
+      <li>Email: <%= current_user.email %> </li>
+    </ul>
+    <%= form_for :user, :url => use_existing_bookings_path, :html => { :id => "customer-form" } do |f| %>
+      <%= hidden_field_tag :bid, params[:bid] %>
+      <%= hidden_field_tag :sid, params[:sid] %>
+      <%= hidden_field_tag :staffid, params[:staffid] %>
+      <%= hidden_field_tag :date, params[:date] %>
+      <%= hidden_field_tag :time, params[:time] %>
+      <%= hidden_field_tag :user_id, current_user.id %>
+      <%= submit_tag "Continue", :class => "btn btn-primary btn-large submit-btn" %>
+    <% end %>
+  <% end %>
+</div>
+
+<script>
+$(function(){
+  
+  
+  $("#customer-form").submit(function(){
+    if ($("#user_id").length == 0 && $("#agree:checked").length == 0) {
+      alert("You need to agree with the Terms and Conditions");
+      return false;
+    }
+    
+    if ($(this).valid()) {
+      $("#loader").show();
+      $(".submit-btn").addAttr("disabled", "disabled");
+      return true;
+    }else{
+      return false;
+    }
+  });
+  
+  $(".email-new").blur(function(){
+    if ($(this).val().length > 1) {
+      var classname = "email-new";
+      var email = $(this).val();
+      $("#"+classname+"-loader").show();
+
+      $.get("/bookings/email_checker.js?email=" + email + "&classname=" + classname + "&form_id=customer-form");
+    }
+  })
+
+
+});
+</script>

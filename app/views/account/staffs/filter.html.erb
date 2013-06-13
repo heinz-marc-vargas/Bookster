@@ -1,0 +1,11 @@
+<% if @success %>
+  <div class="message success"><p><%= @success %></p></div>
+<% end %>
+<%= form_tag({:action => :mass_update}, { :class => "button_to" }) do |f| %>
+<div class="textbox">
+  <%= render :partial => "table_options" %>
+	<div id="staff_list" class="textbox_content">
+		<%= render :partial => "staff_list" %>
+	</div>
+</div>
+<% end %>

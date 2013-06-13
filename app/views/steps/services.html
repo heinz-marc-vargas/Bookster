@@ -1,0 +1,64 @@
+<h3 class="heading">Account Setup Wizard</h3>
+
+<ul id="validate_wizard-titles" class="stepy-titles clearfix">
+	<li id="validate_wizard-title-0" class="current-step" ><div>Business Details</div><span class="stepNb">1</span></li>
+	<li id="validate_wizard-title-1" class="current-step"><div>Operating Hours</div><span class="stepNb">2</span></li>
+	<li id="validate_wizard-title-2" class="current-step"><div>Staff</div><span class="stepNb">3</span></li>
+	<li id="validate_wizard-title-2" class="current-step"><div>Services</div><span class="stepNb">4</span></li>
+	<li id="validate_wizard-title-2"><div>Notification settings</div><span class="stepNb">5</span></li>
+	<li id="validate_wizard-title-2"><div>Complete</div><span class="stepNb">6</span></li>
+</ul>
+
+
+<fieldset title="" class="step" id="validate_wizard-step-0">
+	<%= link_to raw("<i class=\"icon-plus icon-white\"></i> Add Service"), addservice_steps_path, :class => "btn btn-primary", :style => "margin-right: 10px; margin-bottom: 10px;", 'data-target' => "#serviceModal", :role => "button", "data-toggle" => "modal" %> 
+	<br/>
+	<div>
+		<ul class="unstyled service-list">
+			<% @services.each do |service| %>
+				<%= render "/steps/service", :service => service %>
+			<% end %>			
+		</ul>
+	</div>
+
+	<div style="clear:both"></div>
+	<div>
+	<%= link_to raw("<i class=\"icon-chevron-right icon-white\"></i> Next"), notifications_steps_path, :class => "btn btn-primary button-next", :style => "margin-right: 10px;" %> 
+	<%= link_to raw("<i class=\"icon-chevron-left icon-white\"></i> Back"), staffs_steps_path, :class => "btn btn-primary button-next", :style => "margin-right: 10px;" %>
+	</div>
+</fieldset>
+
+<div class="stepy-error"></div>
+
+
+
+<div class="modal hide" id="serviceModal" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel" aria-hidden="true" 
+style="overflow: scroll !important;top: 35% !important; height: 475px !important; width:550px !important; margin: -200px 0 0 -300px !important;" >
+  <div class="modal-body" style="overflow:visible !important">
+    <p>Loading…</p>
+  </div>
+</div>
+
+
+
+
+<script>
+$(function(){
+	$("[data-toggle=modal]").die();
+	
+	$("[data-toggle=modal]").live('click', function(ev) {
+	    ev.preventDefault();
+	    $( $(this).attr('data-target') + " .modal-body").html('Loading...');
+	    $( $(this).attr('data-target') + " .modal-body").load($(this).attr("href"), function() { 
+	         $($(this).attr('data-target')).modal("show"); 
+	    });
+	});
+
+
+
+
+});	
+
+
+</script>
+

@@ -1,0 +1,10 @@
+<% content_for :head do -%>
+  <%= javascript_include_tag 'imodal.js' %>
+  <%= stylesheet_link_tag 'imodal/imodal' %>
+<% end -%>
+
+<script>
+  $(document).ready(function() {
+      $(document).tomodal("<%= edit_event_path(@event.id) %>", {width: 500});
+  })(jQuery);
+</script>

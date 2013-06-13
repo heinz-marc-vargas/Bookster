@@ -1,0 +1,159 @@
+ <div class="row-fluid">
+  <div class="span12">
+    <h3 class="heading"><%= t('.branch_details')%></h3>
+
+		<div class="tabbable"> <!-- Only required for left/right tabs -->
+		  <ul class="nav nav-tabs">
+		    <li class="active"><a href="#tab1" data-toggle="tab">Branch Details</a></li>
+		    <li><a href="#tab2" data-toggle="tab">Operating Hours</a></li>
+		  </ul>
+		  
+		  
+		  <%= simple_form_for [:account, @branch], method: :put, remote: true, html: { :multipart => true, class: "form-horizontal"} do |f| %>
+
+		  <div class="tab-content" style="min-height: 400px;">
+		    <div class="tab-pane active" id="tab1">
+		    	
+        		<table width="80%">
+        			<tr style="">
+          			<td>
+            			<%= render("/account/branches/forms", :f => f) %>
+          			</td>
+							</tr>
+						</table>    
+				    
+		    </div>
+		    
+		    
+		    <div class="tab-pane" id="tab2">
+		    	
+		        <table width="70%">
+		        	<tr style="vertical-align:top;">
+			          <td width="50%" style="padding-left: 20px">
+			            <h4><%= t('.operating_hours')%></h4>
+		              <% 0.upto(6) do |i| %>
+		                <div class="control-group ">
+		                  <div>
+		                    <label class="checkbox inline">
+		                      <%= check_box_tag("openday_" + i.to_s, "1", @branch.operating_days.find_by_day_of_week(i).nil? ? false : true, { :class => "day_chk" }) %>
+		                      <%= Date::DAYNAMES[i] %>
+		                    </label>
+		
+												<div id="day_<%= i %>" style="<%= @branch.operating_days.find_by_day_of_week(i).nil? ? 'display:none;' : '' %>">
+													<div style="display:none;">
+														<%= hidden_field_tag("start_time_am_" + i.to_s, (@branch.operating_days.find_by_day_of_week(i).operating_hour.am_start_time rescue "28800")) %>
+														<%= hidden_field_tag("end_time_am_" + i.to_s, (@branch.operating_days.find_by_day_of_week(i).operating_hour.am_end_time rescue "43200")) %>
+														<%= hidden_field_tag("start_time_pm_" + i.to_s, (@branch.operating_days.find_by_day_of_week(i).operating_hour.pm_start_time rescue "46800")) %>
+														<%= hidden_field_tag("end_time_pm_" + i.to_s, (@branch.operating_days.find_by_day_of_week(i).operating_hour.pm_end_time rescue "82800")) %>
+													</div>
+													<table width="100%" border="0px" style="vertical-align:middle;">
+														<tr>
+															<td style="border-bottom:0px;padding:0px;margin-bottom:0px;vertical-align:top;"  width="250px">
+																<div style="width:65px; float: left"><%= t :morning %>:</div> 
+																<div><input readonly type="text" id="time_am_<%= i %>" value="<%= @branch.operating_days.find_by_day_of_week(i).nil? ? '8:00AM - 12:00AM' : @branch.operating_days.find_by_day_of_week(i).operating_time_am %>" style="border:0; width:140px; display: inline;  background-color: #fff" /></div>
+																</td>
+															  <td style="border-bottom:0px;padding:0px;margin-bottom:0px vertical-align:top;" nowrap><div class="am_slider" id="am_slider_<%= i %>"></div></td>
+														</tr>
+														<tr>
+															<td style="border-bottom:0px;padding:0px;margin-bottom:0px;vertical-align:top;"  width="250px">
+																<div style="width:65px; float: left"><%= t :afternoon %>:</div> 
+																<div><input readonly type="text" id="time_pm_<%= i %>" value="<%= @branch.operating_days.find_by_day_of_week(i).nil? ? '13:00PM - 23:00PM' : @branch.operating_days.find_by_day_of_week(i).operating_time_pm %>" style="border:0;  width:140px; display: inline; background-color: #fff" /></div>
+														  </td>
+															<td style="border-bottom:0px;padding:0px;margin-bottom:0px;vertical-align:top;" nowrap><div class="pm_slider" id="pm_slider_<%= i %>"></div></td>
+														</tr>
+													</table>
+												</div>
+											</div>
+										</div>
+									<% end %>
+			          </td>
+		          </tr>
+		        </table>
+		
+		    </div>
+		    
+		  </div>
+		  
+					<div class="control-group">
+						<div class="controls">
+	            <%= f.submit "Save branch", :class => "btn btn-primary" %>
+	            <%= link_to_function("Cancel", "Application.load_content(Routes.account_branches_path());", :class => "btn") %>	
+						</div>
+					</div>
+								  
+		  <% end %>
+		</div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+
+$('.day_chk').click(function() {
+  var $day_id = $(this).attr("id").split('_')[1];
+  if ($(this).attr('checked')) {
+    $("#day_" + $day_id).slideDown();
+  }
+  else {
+    $("#day_" + $day_id).slideUp();
+  }
+});
+
+$(document).ready(function(){
+	
+	$(".form-horizontal").validate({
+		rules: {
+			"branch[name]":{
+				minlength: 3
+			}
+		},
+		messages: {
+			"branch[name]": {
+				required: "Branch name is required."
+			}
+		}
+	});
+	
+<% 0.upto(6) do |i| %>
+console.log("here");
+  $("#am_slider_<%= i %>").slider({
+    range: true,
+    min: 28800,
+    max: 46800,
+    step: 1800,
+    values: [<%= @branch.operating_days.find_by_day_of_week(i).operating_hour.am_start_time rescue "28800" %>,
+             <%= @branch.operating_days.find_by_day_of_week(i).operating_hour.am_end_time rescue "43200" %>],
+    slide: function( event, ui ) {
+      start_h = Math.floor(ui.values[0] / 3600);
+      start_m = (ui.values[0] % 3600 / 60);
+      if (start_m == 0) { start_m += "0"; }
+      end_h = Math.floor(ui.values[1] / 3600);
+      end_m = (ui.values[1] % 3600 / 60);
+      if (end_m == 0) { end_m += "0"; }
+      $("#time_am_" + $(this).attr("id").split('_')[2]).val(start_h + ":" + start_m + "AM - " + end_h + ":" + end_m + "AM");
+      $("#start_time_am_" + $(this).attr("id").split('_')[2]).val(ui.values[0].toString());
+      $("#end_time_am_" + $(this).attr("id").split('_')[2]).val(ui.values[1].toString());
+    }
+  });
+  $("#pm_slider_<%= i %>").slider({
+    range: true,
+    min: 46800,
+    max: 82800,
+    step: 1800,
+    values: [<%= @branch.operating_days.find_by_day_of_week(i).operating_hour.pm_start_time rescue "46800" %>,
+             <%= @branch.operating_days.find_by_day_of_week(i).operating_hour.pm_end_time rescue "82800" %>],
+    slide: function( event, ui ) {
+      start_h = Math.floor(ui.values[0] / 3600);
+      start_m = (ui.values[0] % 3600 / 60);
+      if (start_m == 0) { start_m += "0"; }
+      end_h = Math.floor(ui.values[1] / 3600);
+      end_m = (ui.values[1] % 3600 / 60);
+      if (end_m == 0) { end_m += "0"; }
+      $("#time_pm_" + $(this).attr("id").split('_')[2]).val(start_h + ":" + start_m + "PM - " + end_h + ":" + end_m + "PM");
+      $("#start_time_pm_" + $(this).attr("id").split('_')[2]).val(ui.values[0].toString());
+      $("#end_time_pm_" + $(this).attr("id").split('_')[2]).val(ui.values[1].toString());
+    }
+  });
+<% end %>
+});
+</script>

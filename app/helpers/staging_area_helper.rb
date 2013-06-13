@@ -1,0 +1,2 @@
+module StagingAreaHelper
+end

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= @company.name.humanize %> </title>
+
+    <!-- customer booking stylesheets -->
+    <%= stylesheet_link_tag "customer_booking" %>
+    <%= stylesheet_link_tag "application" %>
+
+    <!-- Application javascripts -->
+    <%= javascript_include_tag "application" %>
+
+
+    <%= csrf_meta_tag %>
+    <%= favicon_link_tag 'clock_preferences.ico' %>
+
+    <%= stylesheet_link_tag "http://fonts.googleapis.com/css?family=PT+Sans" %>
+
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="/assets/gebo_admin_1.4/css/ie.css" />
+      <script src="/assets/gebo_admin_1.4/js/ie/html5.js"></script>
+      <script src="/assets/gebo_admin_1.4/js/ie/respond.min.js"></script>
+    <![endif]-->
+
+    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+
+
+
+
+
+  </head>  
+  <body>
+    <div id="loading_layer" style="display:none"><%= image_tag("gebo_admin_1.4/img/ajax_loader.gif")%></div>
+
+    <div>
+    
+      <!-- main content -->
+      <div id="contentwrapper">
+        <div class="wizard_content">
+
+          <%= yield %>
+
+        </div>
+      </div>
+      
+      
+    </div>
+  </body>
+</html>

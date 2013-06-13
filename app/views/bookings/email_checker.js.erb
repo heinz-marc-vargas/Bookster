@@ -1,0 +1,8 @@
+<% if @user %>
+  $(".<%= params[:classname]%>").addClass("duplicate");
+<% else %>
+  $(".<%= params[:classname]%>").removeClass("duplicate");
+<% end %>
+
+$("#<%=params[:classname]%>-loader").hide();
+$("#<%= params[:form_id]%>").valid();

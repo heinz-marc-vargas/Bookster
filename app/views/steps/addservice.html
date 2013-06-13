@@ -1,0 +1,99 @@
+<h3 class="heading ">Add Service </h3>
+
+<div class="alert alert-error hide"></div>
+
+
+<%= form_for @service, :url => addservice_steps_path, :html => { :class => "stepy-wizzard form-horizontal", :id => "business", :remote => true } do |f|%>
+	<%= hidden_field_tag "service[branch_id]", @company.branches.first.id %>
+	
+	
+	<fieldset title="" class="step" id="validate_wizard-step-0" style="width: 463px;">
+		<div class="control-group" >
+			<label for="v_email" class="control-label">Service Name *</label>
+			<div class="controls">
+				<%= f.text_field :name, :required => true %>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="v_email" class="control-label">Description *</label>
+			<div class="controls">
+				<%= f.text_area :description, :rows => 2, :required => true %>
+			</div>
+		</div>
+		<div class="formSep control-group">
+			<label for="v_email" class="control-label">Duration(minutes) *</label>
+			<div class="controls">
+				<%= f.text_field :duration, :class => "number", :required => true  %>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label for="v_username" class="control-label">Price *</label>
+			<div class="controls">
+				<%= f.text_field :charge, :required => true, :class => "number" %>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="v_password" class="control-label">Category:</label>
+			<div class="controls">
+				<%= select_tag "service[service_category_id]", options_for_select(@categories.collect{|c| [c.name.humanize, c.id]}, @service.service_category_id), :include_blank => true %>
+				<br/>
+				<%= link_to "Add Category", "#", :id => "add_category" %>
+				<%= hidden_field_tag "new_category", nil %>				
+				
+			</div>
+		</div>		
+		<div class=" control-group">
+			<label for="v_email" class="control-label">Staffs *</label>
+			<div class="controls">
+				<ul class="unstyled">
+		  		<% current_user.companies.first.staffs.each do |staff| %>
+				    <li>
+				      <%= check_box_tag "staff[]", staff.id, nil, :class => "staff" %>
+				      <%= staff.full_name.titleize %>
+				    </li>
+		  	  <% end %>
+	  	  </ul>
+	  	  				  
+			</div>
+		</div>
+		
+		<button type="submit" name="button" class="btn btn-primary button-next">Add Service</button>
+		
+	</fieldset>
+<% end %>
+
+<script>
+$(function () {
+	$("#business").validate();
+	
+	$("#add_category").click(function(){
+			var ans = prompt("Enter new category:");
+			array = new Array();
+			has_thesame = false;
+
+			if (ans != null) {
+				if (ans.trim() != ""){
+					$("#service_service_category_id option").each(function(indx){
+						
+						if (ans == $(this).text()) {
+							$("#service_service_category_id option").eq(indx).attr("selected", "selected");
+							$("#new_category").val('');
+							has_thesame = true;
+						}
+					});
+					
+					if (!has_thesame) {
+						$("#service_service_category_id").append(new Option(ans, "0"));
+						$("#service_service_category_id option").eq($("#service_service_category_id option").length-1).attr("selected", "selected");
+						$("#new_category").val(ans);
+					}
+					
+				}
+			}
+			
+		});	
+	
+	
+});
+</script>

@@ -1,0 +1,47 @@
+<div class="row-fluid">
+   <div class="span12">
+
+		<h2><%= t('account.companies.text') %></h2>
+
+		<% if params[:success] %>
+		  <div class="alert alert-success">
+		  	<a class="close" data-dismiss="alert">x</a>
+		  	<p><%= params[:success] %></p>
+		  </div>
+		<% end %>
+
+		<div class="tableactions">
+		  <%= link_to(t('.add_company'), "#", {:id => "add_new_company", :class => "btn" }) if can?(:add, Company) %>
+		</div>
+
+		<table id="dt_companies" class="table table-striped table-bordered dTableR">
+			<thead>
+			<tr>
+				<th><%= t('companies.company_logo')%></th>
+				<th ><%= t('companies.company_name')%></th>
+				<th><%= t :subdomain %></th>
+				<th><%= t :actions %></th>
+			</tr>
+			</thead>
+
+			<tbody>
+        <tr>
+          <td class="dataTables_empty" colspan="4"><%= t :load_data %></td>
+        </tr>
+			</tbody>
+		</table>
+  </div>
+</div>
+
+
+<script>
+  GeboDatatbles.dt_companies(Routes.account_companies_path());
+
+  $('#add_new_company').click(function() {
+    Application.load_content(Routes.new_account_company_path());
+  });
+
+  $('#dt_companies').on("click",'.edit_company',function() {
+    Application.load_content(Routes.edit_account_company_path($(this).data("id")));
+  });
+</script>

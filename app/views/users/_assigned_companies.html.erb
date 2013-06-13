@@ -1,0 +1,30 @@
+<div class="textbox">
+  <h3 class="heading"><%= t('.title') %></h3>
+
+  <table class="table table-striped table-bordered companies" id="user_companies_table">
+    <% user.companies.each do |company| %>
+      <tr class="company">
+         <td class="name"><%= company.name %></td>
+         <td class="action">
+          <%= link_to(tag("i", :class => "icon-trash"),
+                revoke_company_user_path(user.id, :company_id => company.id),
+                :remote => true,
+                :method => :delete,
+                :title => t(:revoke_company)
+              ) %>
+         </td>
+      </tr>
+    <% end %>
+
+    <% if Company.unassigned(user.companies).any? %>
+      <tr>
+        <td class='add_new_company' colspan="2">
+          <%= link_to(t(:add_company),
+                companies_user_path(user.id),
+                :remote => true
+              ) %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>

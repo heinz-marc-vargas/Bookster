@@ -1,0 +1,25 @@
+<h4>Your appointments</h4>
+
+<table id="dt_apptcustomers" class="table table-striped table-bordered dTableR">
+  <thead>
+  <tr>
+    <th>Branch</th>
+    <th>Service</th>
+    <th>Staff</th>
+    <th>Customer</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Duration</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="dataTables_empty" colspan="9">Loading data from server</td>
+    </tr>
+  </tbody>
+</table>
+
+<script>
+  GeboDatatbles.dt_apptcustomers("<%= account_customers_path(format: "json") %>");
+</script>

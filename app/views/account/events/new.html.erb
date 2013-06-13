@@ -1,0 +1,47 @@
+<h3>Appointment</h3>
+<div id="new">
+	<%= simple_form_for Event.new, html: {:class=>"center_form", :id => "new_event_form"} do |f| %>
+		<table class="new_form" cellspacing="3">
+			<tr>
+				<td class="field_name">Service</td>
+				<td class="field_input"><%= f.collection_select(:service_id, Service.all, :id, :service_summary) %></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="field_error"><div id="title_error"></div></td>
+			</tr>
+			<tr>
+				<td class="field_name">Staff</td>
+				<td class="field_input"><%= f.collection_select(:staff_id, Staff.all, :id, :full_name) %></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="field_error"><div id="description_error"></div></td>
+			</tr>
+			<tr>
+				<td class="field_name">Date & Time</td>
+				<td class="field_input"><%= f.text_field :starts_at, { :id => "starts_at" } %></td>
+			</tr>
+			<tr>
+				<td>&nbsp;</td>
+				<td class="field_error"><div id="starts_at_error"></div></td>
+			</tr>
+			<tr>
+				<td><%= f.hidden_field(:user_id, :value => session[:user_id]) %></td>
+			</tr>
+		</table>
+		<div>
+			<%= f.submit "Save Appointment Details", :id => "add_submit" %>
+		</div>
+	<% end %>
+</div>
+
+<%= javascript_include_tag 'events' %>
+<script type="text/javascript">
+  $(document).ready(function() {
+    add.setTargetUrl("<%= account_events_path %>").setRedirectUrl("<%= @redirect_url %>");
+  });
+
+	$(function() { $("#starts_at").datetimepicker(); });
+	$(function() { $("#ends_at").datetimepicker(); });
+</script>

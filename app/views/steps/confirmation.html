@@ -1,0 +1,37 @@
+<h3 class="heading">Account Setup Wizard</h3>
+
+<ul id="validate_wizard-titles" class="stepy-titles clearfix">
+	<li id="validate_wizard-title-0" class="current-step" ><div>Business Details</div><span class="stepNb">1</span></li>
+	<li id="validate_wizard-title-1" class="current-step"><div>Operating Hours</div><span class="stepNb">2</span></li>
+	<li id="validate_wizard-title-2" class="current-step"><div>Staff</div><span class="stepNb">3</span></li>
+	<li id="validate_wizard-title-2" class="current-step"><div>Services</div><span class="stepNb">4</span></li>
+	<li id="validate_wizard-title-2" class="current-step"><div>Notification settings</div><span class="stepNb">5</span></li>
+	<li id="validate_wizard-title-2" class="current-step"><div>Confirmation</div><span class="stepNb">6</span></li>
+</ul>
+
+		
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<h1 class="heading" style="border-bottom: none !important">
+			Congratulations! Your website is now ready.
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+		<%= link_to "View your webiste", @company.subdomain_url, :class => "btn btn-primary", :style => "margin-right: 10px;" %>
+</h1>
+
+
+
+		
+
+	 
+
+
+
+
+<script>
+	$(function(){
+		$("#business").validate();
+	})
+</script>

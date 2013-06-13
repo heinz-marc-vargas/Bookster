@@ -1,0 +1,15 @@
+.row-fluid
+  .span12
+    %h3.heading Company Details
+    .row-fluid
+      .span8
+        = simple_form_for [:account, @company], remote: true, method: :put, html: {multipart: true, class: "form-horizontal"} do |f|
+          %fieldset
+            = render("form", :f => f)
+            .control-group
+              .controls
+                = f.submit "Save Company Details", :class => "btn btn-primary"
+                = link_to_function("Cancel", "Application.account_load_content(Routes.companies_path())", :class => "btn")
+
+%script
+  $("#company_description").autosize();

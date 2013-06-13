@@ -1,0 +1,43 @@
+<div class="wrapper">
+  <section id="content">
+    <div class="columns leading">
+      <br />
+      <div class="grid_9 first">
+        <table class="table table-striped paginate sortable full" summary="Event list" cellpadding="0" cellspacing="0">
+          <thead>
+          <tr>
+            <th>のサービス</th>
+            <th>スタッフ</th>
+												<th>お客様</th>
+            <th>予約日</th>
+
+						<th>タイム</th>
+            <th>期間 (分)</th>
+            <th>オプション</th>
+          </tr>
+          </thead>
+          <% @events.each do |event| %>
+          <tr class="<%= cycle("even", "odd") %>">
+            <td><%= Service.find(event.service_id).name rescue "N/A" %></td>
+            <td><%= Staff.find(event.staff_id).user.full_name rescue "N/A" %></td>
+            <td><%= User.find(event.user_id).full_name rescue "N/A" %></td>
+            <td><center><%= event.appointment_date %></center></td>
+            <td><center><%= event.appointment_span %></center></td>
+            <td><center><%= event.duration %></center></td>
+            <td>
+              <center>
+              <%= link_to(image_tag("icons/user_edit.png"), edit_account_events_path(event)) %>
+              <%= link_to(image_tag("icons/user_delete.png"), {:action => 'delete_from_list', :id => event.id}, :confirm => "約束を取り消す", :class => 'action_show') %></td>
+              </center>
+            </td>
+          </tr>
+          <script>
+            $("#edit_<%= event.id %>").tomodal("#{edit_account_event_path(event.id)}", {width: 500});
+          </script>
+          <% end %>
+        </table>
+      </div>
+    </div>
+    <div class="clear">&nbsp;</div>
+  </section>
+</div>

@@ -1,0 +1,86 @@
+<div class="span5">
+  <h4>Select Date: <input type="text" id="sdatepicker" size="20" value=""  style="width: 110px;" /></h4>
+</div>
+  
+<script>
+/* create an array of days for holidays */
+var disabledDays = Array(
+<% @closed_dates.each do |cd| %>
+  "<%= "#{cd.month.to_i}-#{cd.day.to_i}-#{cd.year.to_i}" %>"
+  <% if @closed_dates.index(cd) < (@closed_dates.length - 1) %>
+  ,
+  <% end %>
+<% end %>
+);
+
+var nowork_days = Array(<%= @branch.off_days_of_week.join(",") %>);
+
+/* utility functions */
+function nationalDays(date) {
+	var m = date.getMonth(), d = date.getDate(), y = date.getFullYear();
+
+	for (i = 0; i < disabledDays.length; i++) {
+		if($.inArray((m+1) + '-' + d + '-' + y,disabledDays) != -1) {
+			return [false];
+		}
+	}
+
+	return [true];
+}
+
+function noWeekendsOrHolidays(date) {
+  if ($.inArray(date.getDay(), nowork_days) != -1 )
+    return [false];
+  
+	return nationalDays(date);
+}
+
+$(document).ready(function() {
+  
+  $("#staff").carouFredSel({
+  	circular: false,
+  	infinite: false,
+  	    auto: false,
+  	    prev: {	
+  	 	    button: "#staff_prev",
+  		    key: "left"
+  	    },
+  	    next: { 
+  		    button: "#staff_next",
+  		    key: "right"
+  	    }
+  });
+  
+  $("#sdatepicker").datepicker({
+    minDate: 0,
+    maxDate: "+3M",
+    dateFormat: "dd-mm-yy",
+    beforeShowDay: noWeekendsOrHolidays,
+    onSelect: function(dateText, inst) {
+      console.log(dateText);
+      //date = dateText.split("/");
+      //date = dstr[1] + "/" + dstr[0] + "/" + dstr[2];
+      date = dateText;
+      
+      var staff_id = $("#staff_id").val();
+      var bid = "<%= params[:bid] %>";
+      var sid = "<%= params[:sid] %>";
+      var staff_id = $("#staff_id").val();
+      
+      $("#schedule_loader").show();
+      $(".available-time").hide();
+      $(".schedule-details").hide();
+      $.get("/bookings/update_timeslots", { bid: bid, sid: sid, date: date, staffid: staff_id })
+        .done(function(data) {
+          $(".available-time").html(data).fadeIn();
+          $("#schedule_loader").hide();
+
+          
+        });
+    }
+  });
+  
+});
+</script>
+
+

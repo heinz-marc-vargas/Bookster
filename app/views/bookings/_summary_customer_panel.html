@@ -1,0 +1,18 @@
+<div class="message warning">
+		<h3>Customer Information</h3>
+		<p>
+		  Customer Name:&nbsp;<%= @customer.full_name rescue "N/A" %><br />
+		  Phone Number:&nbsp;<%= @customer.phone_number rescue "N/A" %><br />
+		  Email:&nbsp;<%= @customer.email rescue "N/A" %><br />
+			Comments:&nbsp;<%= @customer.comments rescue "N/A" %>
+			<a href='#' id="edit_customer">(Edit)</a>
+		</p>
+</div>
+<script>
+	$("#edit_customer").click(function() {
+		$("#customer_summary_panel").hide("slow");
+		$("#customer_info_panel").slideUp("slow");
+		$("#customer_info_panel").show("slow");
+		$("#credit_card_panel").hide("slow");
+	});
+</script>

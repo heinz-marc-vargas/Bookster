@@ -1,0 +1,26 @@
+<div>
+  <br />
+  <table width="100%" border="1">
+  <% @sheet1.each do |row| %>
+    <tr>
+    <td><%= row[0] %></td>
+    <td><%= row[1] %></td>
+    <td><%= row[2] %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+
+<div>
+  <br />
+  <table width="100%" border="1">
+  <% FasterCSV.foreach(@csv_file,{:headers => false, :row_sep => :auto}) do |row| %>
+    <tr>
+    <td><%= row[0] %></td>
+    <td><%= row[1] %></td>
+    <td><%= row[2] %></td>
+    </tr>
+  <% end %>
+  </table>
+</div>
+

@@ -1,0 +1,62 @@
+<div class="textbox">
+	<h4>
+		<%= t :event_details %>
+	  <div class="tableactions" style="float:right;"><input id="back" type="button" class="btn btn-primary" value="<%= t :back_to_list %>" /></div>
+
+	  <% if can?(:update, Event) %>
+	    <div class="tableactions" style="float:right;"><input id="edit" type="button" class="btn btn-primary" value="<%= t('.edit') %>" />&nbsp;&nbsp;</div>
+	  <% end %>
+
+	  <div class="tableactions" style="float:right;"><input id="refresh" type="button" class="btn btn-primary" value="<%= t :refresh %>" />&nbsp;&nbsp;</div>
+	</h4>
+  
+	<div class="textbox_content">
+    <div style="float:right;margin:10px;">
+			<%= image_tag((@event.staff.branch.branch_logo.nil? ? "logos/default_company_logo.jpg" : @event.staff.branch.branch_logo), :size=>"150x50") %>
+    </div>
+		<div style="float:left;margin:5px;vertical-align:top;height:160px;">
+		  <%= image_tag(@event.staff.photo.nil? ? "staff/default.jpg" : "staff/" + @event.staff.id.to_s + @event.staff.photo, { :size=>"100x100" }) %></div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :branch %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @event.branch.name %></span>
+		</div>
+    
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :staff_name %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @event.staff.full_name %></span>
+		</div>
+    
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :service %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @event.service.name %></span>
+		</div>
+    
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :customer %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @event.customer.full_name rescue "N/A" %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :date %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @event.appointment_date %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :time %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @event.appointment_span %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :duration %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @event.duration %></span>
+		</div>
+	</div>
+</div>
+<script>
+	$('#back').click(function() {
+		 Application.load_content("<%= list_account_events_path %>");
+	});
+	$('#refresh').click(function() {
+		Application.load_content("<%= view_account_event_path %>");
+	});
+	$('#edit').click(function() {
+		Application.load_content("<%= edit_account_event_path(@event.id) %>");
+	});
+</script>

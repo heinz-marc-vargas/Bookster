@@ -1,0 +1,25 @@
+<li>
+	<a href="javascript:void(0)" class="side_menu" data-path="/account/branches?id=<%= @company.id %>"><%= t :menu_branches %></a>
+</li>
+<li>
+	<a href="javascript:void(0)" class="side_menu" data-path="<%= account_staffs_path(:id => @company.id) %>"><%= t :menu_staff %></a>
+</li>
+<li>
+	<a href="javascript:void(0)" class="side_menu" data-path="<%= closedate_account_staffs_path(:id => @company.id) %>"><%= t :staff_close_date %></a>
+</li>
+<li>
+	<a href="javascript:void(0)" class="side_menu" data-path="/account/services?id=<%= @company.id %>"><%= t :menu_services %></a>
+</li>
+<li>
+	<a href="javascript:void(0)" class="side_menu" data-path="/account/customers?id=<%= @company.id %>"><%= t :menu_appointments %></a>
+</li>
+<li>
+	<a href="javascript:void(0)" class="side_menu" data-path="/account/calendar?id=<%= @company.id %>"><%= t :menu_calendar %></a>
+</li>
+
+<li>
+	<a href="javascript:void(0)" class="side_menu" data-path="/account/reviews?id=<%= @company.id %>"><%= t :menu_reviews %></a>
+</li>
+<li>
+	<a href="javascript:void(0)" class="side_menu" data-path="/account/customers?id=<%= @company.id %>"><%= t :menu_customers %></a>
+</li>

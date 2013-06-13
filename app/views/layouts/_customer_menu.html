@@ -1,0 +1,7 @@
+<% if @company.complete? %>
+  <% if current_user.admin? || @company.complete? %>
+    <li><%= link_to_function t(:profile), "Application.load_content('#{profile_account_users_path}')" %></li>
+  <% end %>
+<% end %>
+
+<li><%= link_to(t(:logout), destroy_user_session_path)%></li>

@@ -1,0 +1,5 @@
+<p>Welcome <%= @resource.email %>!</p>
+
+<br/><br/>
+<p>Please click the link below to activate your account:</p>
+<p><%= link_to 'Confirm my account', user_confirmation_url(:confirmation_token => @resource.confirmation_token) %></p>

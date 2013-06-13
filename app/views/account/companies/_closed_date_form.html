@@ -1,0 +1,81 @@
+<%= form_tag closedate_account_companies_path, :id => "closedates", :remote => true do %>
+
+<div class="errors hide span7">
+</div>
+
+<div style="clear:both"></div>
+
+<div class="formSep">
+  <div class="row-fluid">
+    <div class="span2">
+      <label>Branch:</label>
+      <%= select( :branch, :branch_id, (current_user.branches_list.collect { |br| [br.name, br.id] }), { :include_blank => false } ) %>
+    </div>
+  </div>
+  
+	<div class="row-fluid">
+		<div class="span2">
+			<label>From Date:</label>
+			<%= text_field_tag :start_date, nil, :class => "span11", :required => true  %>
+		</div>
+		<div class="span2">
+      <label>From Time:</label>
+      <%= text_field_tag :start_time, nil, :class => "span11", :required => true  %>
+    </div>
+	</div>
+	
+	<div class="row-fluid">
+	  <div class="span2">
+      <label>To Date:</label>
+      <%= text_field_tag :end_date, nil, :class => "span11", :required => true  %>      
+    </div>
+    <div class="span2">
+      <label>To Time:</label>
+      <%= text_field_tag :end_time, nil, :class => "span11", :required => true  %>      
+    </div>
+	</div>
+  
+	<div class="row-fluid">
+    <div class="span2">
+      <label>Description:</label>
+      <%= text_field_tag :label, nil, :required => true  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+    <div class="span2" style="text-align: center;">
+      <%= submit_tag "Add Closed Date", :class => "btn", :style => "margin-top:23px;" %>
+    </div>
+	</div>
+</div>
+	
+<% end %>
+
+
+<script>
+  $(function() {
+    $( "#start_date" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 1,
+      format: 'yyyy-mm-dd',
+      onClose: function( selectedDate ) {
+        $( "#start_date" ).datepicker( "option", "minDate", selectedDate );
+        $( "#start_date" ).datepicker( "option", "dateFormat", "yyyy-mm-dd" );
+      }
+    });
+    $( "#start_time" ).timepicker({ showMeridian:false });
+    $( "#end_date" ).datepicker({
+      defaultDate: "+1w",
+      changeMonth: true,
+      numberOfMonths: 1,
+      format: 'yyyy-mm-dd',
+      onClose: function( selectedDate ) {
+        $( "#from" ).datepicker( "option", "maxDate", selectedDate );
+        $( "#end_date" ).datepicker( "option", "dateFormat", "yyyy-mm-dd" );
+      }
+    });
+    $( "#end_time" ).timepicker({ showMeridian:false });
+    
+    $("#closedates").submit(function(){
+    	
+    })
+  });
+</script>

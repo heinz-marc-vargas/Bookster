@@ -1,0 +1,53 @@
+<div class="row-fluid">
+   <div class="span12">
+		<% if params[:success] %>
+		  <div class="alert alert-success">
+		  	<a class="close" data-dismiss="alert">x</a>
+		  	<p><%= params[:success] %></p>
+		  </div>
+		<% end %>
+
+		<div class="clearfix">
+	    <%= render :partial => "table_options" %>
+	  </div>
+
+		<div class="clearfix">
+			<%= render :partial => "appointment_list" %>
+		</div>
+  </div>
+</div>
+
+
+<div class="modal hide" id="custModal" tabindex="-1" role="dialog" aria-labelledby="custModalLabel" aria-hidden="true" >
+  <div class="modal-body">
+    <p>Loading…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><%= t :close %></button>
+  </div>
+</div>
+
+<div class="modal hide" id="notesModal" tabindex="-1" role="dialog" aria-labelledby="notesModalLabel" aria-hidden="true" >
+  <div class="modal-body">
+    <p>Loading…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><%= t :close %></button>
+  </div>
+</div>
+
+<script>
+$(function(){
+	$("[data-toggle=modal]").die();
+	
+	$("[data-toggle=modal]").live('click', function(ev) {
+	    ev.preventDefault();
+	    $( $(this).attr('data-target') + " .modal-body").html('Loading...');
+	    // load the url and show modal on success
+	    $( $(this).attr('data-target') + " .modal-body").load($(this).attr("href"), function() { 
+	         $($(this).attr('data-target')).modal("show"); 
+	    });
+	});
+
+});	
+</script>

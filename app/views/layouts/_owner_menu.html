@@ -1,0 +1,20 @@
+  <% if @company.complete? %>
+    <li><%= link_to_function t(:business_details), "Application.load_content('#{details_account_companies_path}')" %></li>
+    <li><%= link_to_function t(:notifications), "Application.load_content('#{notifications_account_companies_path}')" %></li>
+    <li><%= link_to_function t(:generate_button), "Application.load_content('#{buttons_account_companies_path}')" %></li>
+    <li class="divider"></li>
+    <li><%= link_to_function t(:menu_branches), "Application.load_content('#{account_branches_path}')" %></li>
+    <% if can?(:read, Service) %>
+      <li><%= link_to_function t(:menu_services), "Application.load_content('#{account_services_path}')" %></li>
+    <% end %>
+    <% if can?(:read, Staff) %>
+    <li><%= link_to_function t(:menu_staff), "Application.load_content('#{account_staffs_path}')" %></li>
+    <li><%= link_to_function t(:staff_close_date), "Application.load_content('#{closedate_account_staffs_path}')" %></li>
+    <% end %>
+    <li class="divider"></li>
+    <% if current_user.admin? || @company.complete? %>
+      <li><%= link_to_function t(:profile), "Application.load_content('#{profile_account_users_path}')" %></li>
+    <% end %>
+  <% end %>
+  
+  <li><%= link_to(t(:logout), destroy_user_session_path)%></li>

@@ -1,0 +1,5 @@
+<h1><%= @company.name %></h1>
+<%= image_tag(@company.logo.url, :width =>"250") %>
+<div class="descritpion"><%= @company.description%></div>
+
+<%= render("branches_list", :company => @company) %>

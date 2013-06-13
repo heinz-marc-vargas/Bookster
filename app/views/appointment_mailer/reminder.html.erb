@@ -1,0 +1,14 @@
+<p>Hello <%= @user.full_name %>.</p>
+
+<p>We remind you that you have an appointment.</p>
+
+<p><strong>Branch:</strong> <%= @event.branch.name %></p>
+
+<p><strong>Sevice:</strong> <%= @event.service.name %></p>
+
+<% if @event.description %>
+  <p><strong>Description: </strong> <%= @event.description %></p>
+<% end %>
+
+<p><strong>Time start of appointment:</strong> <%= @event.starts_at.strftime("%R, %d %B %Y") %></p>
+

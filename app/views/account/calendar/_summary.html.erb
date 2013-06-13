@@ -1,0 +1,43 @@
+<div class="widget">
+  <header>
+    <h2>まとめ (現在の月)</h2>
+  </header>
+  <section>
+    <dl>
+      <table>
+        <tr>
+          <td nowrap>
+      Total:&nbsp;</td><td width="100%" style="text-align:right;"><b><%= @total %></b></td>
+        </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr><td colspan=2><b>Service Summary</b></td></tr>
+      <% @service_summary.each do | s | %>
+      <tr>
+        <td nowrap><%= s[0] %>:&nbsp;</td><td style="text-align:right;"><b><%= s[1] %></b></td>
+      </tr>
+    <% end %>
+        <tr><td>&nbsp;</td></tr>
+    <tr><td colspan=2><b>Staff Summary</b></td></tr>
+          <% @staff_summary.each do | s | %>
+      <tr>
+        <td nowrap><%= s[0] %>:&nbsp;</td><td style="text-align:right;"><b><%= s[1] %></b></td>
+      </tr>
+      <% end %>
+      </table>
+    </dl>
+  </section>
+</div>
+<div class="widget">
+  <header>
+    <h2>WHAT?</h2>
+  </header>
+  <section>
+    <dl>
+    
+    <dt>Appointment Progress</dt>
+
+    <dd><div class="progress progress-green"><span style="width: <%= @percent %>%;"><b><%= @percent %>%</b></span></div></dd>
+
+    </dl>
+  </section>
+</div>

@@ -1,0 +1,7 @@
+<h3><%= t('.title') %></h3>
+
+<% company.branches.each do |branch| %>
+  <div class="branch">
+    <%= link_to(branch.name, root_url(:subdomain => branch.subdomain + "." + company.subdomain)) %>
+  </div>
+<% end %>

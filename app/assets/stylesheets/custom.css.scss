@@ -1,0 +1,96 @@
+.dataTables_wrapper .dataTables_info{
+  margin-left: 30px;
+}
+
+.main_content {
+  padding: 10px;
+}
+.sidebar .accordion-heading.active {
+  background-color: #CFCFCF;
+}
+
+.tableactions {
+	margin: 10px 0;
+}
+
+.note.error {
+	color: #B94A48;
+}
+
+.error {
+  padding-top: 3px;
+  color: #B94A48;
+  font-size: 11px;
+}
+
+.cust-appt-container {
+  background-color: #fff;
+  position:relative;
+  background-color: #FFF !important;
+  border: 1px solid #e1e1e8; 
+  padding: 6px;
+  width: 95%;
+  height: 300px;
+}
+
+
+// #contentwrapper {
+// 	.loginbox {
+// 		margin: 100px auto;
+// 		width: 400px;
+
+// 		form {
+// 		  padding-bottom: 40px;
+// 		}
+
+// 		.btn {
+// 			margin: 10px 0;
+// 		}
+
+// 		.remember {
+// 			label {
+// 				float: left;
+// 				margin-left: 5px;
+// 			}
+// 			input {
+// 				float: left;
+// 				margin: 0px;
+// 			}
+// 		}
+// 	}
+// }
+
+#fh_users {
+	.full_name, .controls {
+		float: left;
+	}
+
+	.full_name {
+		padding-right: 10px;
+	}
+}
+
+#staff_list {
+	.select_country {
+		float: right;
+	  padding-right: 10px;
+	}
+
+	.head_controls {
+		float: right;
+	}
+}
+
+#services_list {
+	.head_actions {
+		float: right;
+	}
+
+	.select_action {
+		margin-top: 8px;
+	}
+}
+
+#user_companies_table {
+	width: 300px;
+}

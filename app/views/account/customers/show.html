@@ -1,0 +1,22 @@
+<div class="row-fluid">
+	<div class="span12">
+		<div class="vcard">
+
+			<ul style="margin-left: 10px !important" class="unstyled">
+				<li class="v-heading">
+					Name: <%= @customer.full_name.titleize %>
+				</li>
+				<li>
+					Email: <%= @customer.user.email %>
+				</li>
+				<li>
+					Phone:<%= @customer.phone_number %>
+				</li>
+				<li>
+					Address: <%= @customer.address %>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+</div>

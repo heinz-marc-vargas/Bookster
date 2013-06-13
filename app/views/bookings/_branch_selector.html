@@ -1,0 +1,75 @@
+<div id="service_selector">
+  <div id="select_header">
+    <span id="title"><%= (@branch.name.nil?)? @company.name : @branch.name %></span><br/>
+    <span id="branch_addr">
+      <%= (@branch.address_1.nil?)? @company.street : @branch.address_1 %><%= (@branch.address_2.nil?)? "" : (", " + @branch.address_2) %>, 
+      <%= (@branch.city.nil?)? @company.city : @branch.city %>, <%= (@branch.state.nil?)? @company.state : @branch.state %>, <%= (@branch.zipcode.nil?)? @company.zip : @branch.zipcode %>, 
+      <%= Country.find((@branch.country_id.nil?)? @company.country_id : @branch.country_id).name rescue '' %>
+    </span>
+  </div>
+  
+<%
+  svc_catg_ids = @branch.services.map(&:service_category_id).uniq
+  svc_catgs = ServiceCategory.where("id IN (?)", svc_catg_ids)
+  catgs_svcs = {}
+
+  @branch.services.each do |svc|
+    catg = svc_catgs.select { |s_catg| s_catg.id == svc.service_category_id }[0]
+    
+
+
+  end
+%>
+
+  <div id="branch_left">
+    <div id="reviews_star">
+      <p><span class="stars">4.5</span></p>
+    </div>
+  
+    <div id="svc_catg_list">
+      <div class="box_label_div"><br/>
+        <span class="box_label"><%=t('customer_booking.appointments.available_services') %></span><br/><br/>
+      </div>
+      <div class="box_content_div">
+
+<% catgs_svcs.each do |(catg, svcs)| %>
+        <div class="svc_catg"><strong><%= catg %></strong></div>
+        <div class="svcs">
+          <ul>
+            <% svcs.each do |svc| %>
+              <li><%= svc %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+<% end %>
+
+    </div>
+    <br/><br/>
+    <div id="reviews">
+      <div class="box_label_div"><br/>
+        <span class="box_label"><%=t('customer_booking.appointments.reviews') %></span><br/><br/>
+      </div>
+      <div class="box_content_div">&nbsp;
+      </div>
+    </div>
+  </div>
+  
+  <div id="branch_right">
+    <div id="location">
+      <div id="map_canvas"></div>  
+    </div>
+<%
+  note = Note.where("noteable_type = 'Branch' AND noteable_id = " + @branch.id.to_s).first
+  branch_notice = (note.nil?)? "" : note.contents
+%>
+    <div id="notice">
+      <div class="box_label_div"><br/>
+        <span class="box_label">Notice</span><br/><br/>
+      </div>
+      <div class="box_content_div"><%= branch_notice %></div>
+    </div>
+  </div>
+  <%#= @branch.company_id.inspect %>
+
+</div>

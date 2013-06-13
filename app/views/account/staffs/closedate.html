@@ -1,0 +1,39 @@
+<h2><%= t :staff_close_date %></h2>
+
+<%= render "closed_date_form" %>
+
+<div class="closed-dates-list">
+	<% unless @closed_dates.empty? %>
+	<h3>Staff Away Dates:</h3>
+	
+	<div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+				  <th>Staff Name</th>
+				  <th>Branch</th>
+					<th>Unavailable dates</th>
+					<th>Total days</th>
+					<th>Description</th>
+					<th>Actions</th>
+				</tr>
+				
+				<% @closed_dates.each do |cdate|
+				    st = Staff.find(cdate.blockable_id) 
+				%>
+					<tr class="closed_date_<%= cdate.id %>">
+					  <td><%= st.full_name %></td>
+					  <td><%= st.branch.name %></td>
+						<td><%= cdate.start_date_time.strftime('%B %d, %Y') rescue '' %> - <%= cdate.end_date_time.strftime('%B %d, %Y') rescue ''%></td>
+						<td><%= cdate.total_days %></td>
+						<td><%= cdate.label %></td>
+						<td><%= link_to "Remove", remove_cdate_account_staff_path(cdate), :remote => true, :method => :delete %></td>
+					</tr>
+				<% end %>
+				
+			</thead>
+		</table>
+	</div>
+	
+	<% end %>
+</div>

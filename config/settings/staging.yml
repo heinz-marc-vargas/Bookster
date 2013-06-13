@@ -1,0 +1,14 @@
+facebook:
+  app_id: 247484138706195
+  app_secret: ffe05b0ce8105de3848a6d66fa1ddc79
+
+inpendium:
+  server: test.ctpe.io
+  path: /payment/ctpe
+  mode: INTEGRATOR_TEST
+  currency: JPY
+  sender: ff80808137daee98013808a5be592743
+  channel: ff80808137daee98013808a5be5a2748
+  user: ff80808137daee98013808a5be592745
+  password: demo
+  response: SYNC

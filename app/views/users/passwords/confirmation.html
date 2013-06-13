@@ -1,0 +1,61 @@
+<%= form_for("user", :as => "user", :url => auth_users_passwords_confirmation_path, :html => { :method => :post, :id => "pass_form" }) do |f| %>
+  <div class="top_b">Request confirmation link</div>
+
+  <% unless flash[:error].nil? %>
+    <div class="alert alert-error alert-login">
+      <div><%= flash[:error] %></div>
+    </div>
+  <% end %>
+
+	<% unless @user.nil? %>
+	  <% if @user.errors.any? %>
+	    <div class="alert alert-error alert-login">
+	      <% @user.errors.full_messages.each do |msg| %>
+	        <div><%= msg %></div>
+	      <% end %>
+	    </div>
+	  <% end %>
+	<% end %>
+	
+	
+	<% if params[:sent].blank? %>
+	  <div class="alert alert-info alert-login">
+	    Please enter your email address and get confirmation email.
+	  </div>
+	
+	  <div class="cnt_b">
+	    <div class="formRow clearfix">
+	      <div class="input-prepend">
+	        <span class="add-on"></span><input type="text" name="user[email]" value="<%= params[:email] %>" placeholder="Your email address" />
+	      </div>
+	    </div>
+	  </div>
+	
+	  <div class="btm_b tac">
+	    <button class="btn btn-inverse" type="submit">Get Confirmation Link</button>
+	  </div>
+  <% else %>
+  	<div class="alert alert-info alert-login">
+	    An email was sent to you. Please check your email to confirm you account.
+	  </div>
+	  
+	  <div class="cnt_b">
+	    <div class="formRow clearfix">
+	      <div class="input-prepend">
+	      </div>
+	    </div>
+	  </div>
+	  
+	   <div class="btm_b tac">
+	    
+	  </div>
+	  
+  <% end %>
+  
+  
+	<div class="links_b links_btm clearfix">
+	  <a href="<%= new_user_session_path %>">send me back to the sign-in screen</a>
+	</div>
+
+<% end %>
+

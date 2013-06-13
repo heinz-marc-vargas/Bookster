@@ -1,0 +1,78 @@
+//= require ./flat/bootstrap.css
+//= require ./flat/plugins/datepicker/datepicker
+//= require_self
+
+
+.staff-box {
+  text-align:center;
+  width: 80px;
+  height: 100px;
+  background-color: #FAFAFA;
+}
+#staff .selected {
+  background-color: white;
+  border: 3px solid #C7C7C7;
+}
+
+.image_carousel {
+	padding: 10px 0 10px 28px;
+	position: relative;
+}
+.image_carousel div {
+	border: 1px solid #E6E6E6;
+	background-color: #FAFAFA;
+	padding: 6px;
+	margin: 7px;
+	display: block;
+	float: left;
+}
+.image_carousel div img{
+	width: 74px;
+  height: 80px;
+}
+
+a.prev, a.next {
+	background: url(../images/miscellaneous_sprite.png) no-repeat transparent;
+	width: 40px;
+	height: 40px;
+	display: block;
+	position: absolute;
+	top: 45px;
+}
+a.prev {			left: -22px;
+					background-position: 0 0; }
+a.prev:hover {		background-position: 0 -50px; }
+a.prev.disabled {	background-position: 0 -100px !important;  }
+a.next {			right: -22px;
+					background-position: -50px 0; }
+a.next:hover {		background-position: -50px -50px; }
+a.next.disabled {	background-position: -50px -100px !important;  }
+a.prev.disabled, a.next.disabled {
+	cursor: default;
+}
+
+a.prev span, a.next span {
+	display: none;
+}
+.pagination {
+	text-align: center;
+}
+.pagination a {
+	background: url(../images/miscellaneous_sprite.png) 0 -300px no-repeat transparent;
+	width: 15px;
+	height: 15px;
+	margin: 0 5px 0 0;
+	display: inline-block;
+}
+.pagination a.selected {
+	background-position: -25px -300px;
+	cursor: default;
+}
+.pagination a span {
+	display: none;
+}
+.clearfix {
+	float: none;
+	clear: both;
+}
+

@@ -1,0 +1,7 @@
+<% if @user.errors.any? %>
+  Application.render_content('<%=j render('users/new') %>');
+<% else %>
+  Application.load_content(
+    "<%= users_path %>"
+  );
+<% end %>

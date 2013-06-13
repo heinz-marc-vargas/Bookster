@@ -1,0 +1,8 @@
+<%
+ if @staff.errors.any? || @staff.user.errors.any? %>
+  Application.render_content(<%= render('/account/staffs/edit').to_json.html_safe %>);
+
+<% else
+%>
+	Application.load_content("<%= account_staff_path(@staff) %>");
+<% end %>

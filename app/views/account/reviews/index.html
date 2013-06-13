@@ -1,0 +1,65 @@
+<h4 class="heading"><%= t :menu_reviews %> </h4>
+
+<%= "<p>You have no reviews yet</p>".html_safe if @reviews.empty? %>
+
+
+<% unless @reviews.empty? %>
+<table class="table table-condensed">
+  <thead>
+    <tr>
+      <th><%= t('.customer_name') %></th>
+      <th><%= t('.service_availed') %></th>
+      <th width="10%"><%= t('.rating') %></th>
+      <th><%= t('.date_submitted') %></th>
+      <th><%= t :actions %></th>
+    </tr>
+  </thead>
+  <tbody>
+  	<% @reviews.each do |review| %>
+  	<% next if review.event.nil? %>
+    <tr class="review-row-<%= review.id %>" >
+      <td>
+      	<%= link_to review.customer.full_name, view_account_review_path(review), :class => "review-row", 'data-target' => "#reviewModal", :role => "button", "data-toggle" => "modal", :remote => true %>
+      </td>
+      <td><%= review.event.title %></td>
+      <td><%= review.rating %></td>
+      <td><%= review.created_at.strftime("%B %d, %Y") %></td>
+      <td>
+      	<%= link_to("<i class='icon-trash'></i>".html_safe, account_review_path(review.id), :remote => true, :method => :DELETE, :confirm => format((t :are_you_sure_delete), "Review")) %>
+      	<% if review.approved? %>
+      	<i class="icon-check"></i>
+      	<% end %> 
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div class="modal hide" id="reviewModal" tabindex="-1" role="dialog" aria-labelledby="reviewModalLabel" aria-hidden="true" >
+  <div class="modal-body">
+    <p>Loading…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true"><%= t :close %></button>
+  </div>
+</div>
+
+<% end %>
+
+
+<script>
+$(function(){
+	$(".review-row").die();
+	
+	$(".review-row").live('click', function(ev) {
+	    ev.preventDefault();
+	    $( $(this).attr('data-target') + " .modal-body").html('Loading...');
+	    // load the url and show modal on success
+	    $( $(this).attr('data-target') + " .modal-body").load($(this).attr("href"), function() { 
+	         $($(this).attr('data-target')).modal("show"); 
+	    });
+	});
+
+});	
+</script>

@@ -1,0 +1,41 @@
+
+<% if @review_link.nil? %>
+<div style="margin-top: 100px; margin-left: auto; margin-right: auto; text-align: center">
+	<h3><%= t('.invalid_link') %></h3>
+</div>
+<% end %>
+
+<% unless @review_link.nil? %>
+
+<%= form_tag account_reviews_path(:token => params[:token]), :class => "" do %>
+
+	<fieldset>
+    <legend><%= format(t('.create_for'), @company.name.titleize) %> </legend>
+    
+    <label style="font-size: 14px;"><%= t('.branch_name') %>: <%= @company.branches.first.name.titleize %></label>
+    <br/>
+    
+    
+    <label><%= t('.staff_name') %></label>
+    <%= select nil, :staff_id, @company.branches.first.staff.collect{|s| [s.full_name.titleize, s.id]}, { :include_blank => true} %>
+    
+    
+    <label><%= t(".review_content") %></label>
+    <%= text_area_tag :content, "", :style => "width: 500px; height: 150px;", :required => true%>
+    
+    <label><%= t('.rate_our_service') %>: </label>
+    <%= radio_button_tag :rating, 1, false, {:required => true}%> 1
+    <%= radio_button_tag :rating, 2, false, {:required => true} %> 2
+    <%= radio_button_tag :rating, 3, false, {:required => true} %> 3
+    <%= radio_button_tag :rating, 4, false, {:required => true} %> 4
+    <%= radio_button_tag :rating, 5, false, {:required => true} %> 5
+    
+    
+    <label class="checkbox">
+       
+    </label>
+    <button type="submit" class="btn"><%= t('.submit_review') %></button>
+  </fieldset>	
+	
+<% end %>
+<% end %>

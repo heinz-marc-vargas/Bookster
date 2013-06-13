@@ -1,0 +1,4 @@
+$("#note-loader").hide();
+$("#add-note-form")[0].reset();
+$("#add-note").hide();
+$("#notes-list").load("<%= notes_list_account_event_path(@event)%>");

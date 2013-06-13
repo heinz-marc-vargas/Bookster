@@ -1,0 +1,19 @@
+<div class="message success">
+		<h3>Booking Information</h3>
+		<p>
+		  Service: <%= session[:service_name] %><br />
+		  Staff: <%= session[:staff_name] %><br />
+		  Date: <%= session[:event_date] %><br />
+			Time: <%= session[:timeslot] %>
+      <a href='#' id="edit_event">(Edit)</a>
+		</p>
+</div>
+<script>
+	$("#edit_event").click(function() {
+		$("#service_selector").slideDown("slow");
+		$("#event_summary_panel").hide("slow");
+		$("#customer_summary_panel").hide("slow");
+		$("#customer_info_panel").hide("slow");
+		$("#credit_card_panel").hide("slow");
+	});
+</script>

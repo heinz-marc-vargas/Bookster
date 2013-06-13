@@ -1,0 +1,33 @@
+<h2>Branch Closed Dates</h2>
+
+<%= render "closed_date_form" %>
+
+<div class="closed-dates-list">
+	<% unless @closed_dates.empty? %>
+	<h3>Dates when your business is closed:</h3>
+	
+	<div>
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>Unavailable dates</th>
+					<th>Total days</th>
+					<th>Description</th>
+					<th>Actions</th>
+				</tr>
+				
+				<% @closed_dates.each do |cdate| %>
+					<tr class="closed_date_<%= cdate.id %>">
+						<td><%= cdate.start_date_time.strftime('%B %d, %Y') rescue '' %> - <%= cdate.end_date_time.strftime('%B %d, %Y') rescue ''%></td>
+						<td><%= cdate.total_days %></td>
+						<td><%= cdate.label %></td>
+						<td><%= link_to "Remove", remove_cdate_account_company_path(cdate), :remote => true, :method => :delete %></td>
+					</tr>
+				<% end %>
+				
+			</thead>
+		</table>
+	</div>
+	
+	<% end %>
+</div>

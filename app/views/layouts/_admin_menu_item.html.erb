@@ -1,0 +1,4 @@
+<li id="menu_<%= @module %>" class="side_menu">
+  <a href="#" class="<%= (session[:active_main_tab] == @module) ? "selected": "" %>">
+    <%= image_tag("adminium/nav/" + @module+ ".png") %> <%= t "menu_" + @module %></a>
+</li>

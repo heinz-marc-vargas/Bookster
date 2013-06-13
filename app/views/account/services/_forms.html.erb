@@ -1,0 +1,78 @@
+
+<div class="row-fluid">
+	<div class="span12">
+	<table cellpadding=4 cellspacing=1 align="left">
+		<tr>
+			<td><label>Branch Name:</label></td>
+			<td style="width: 20px; text-align:center">:</td>
+			<td><%= select_tag "service[branch_id]", options_for_select(@branches.collect{|c| [c.name.humanize, c.id]}) %></td>
+		</tr>
+		<tr>
+			<td><label>Service Name:</label></td>
+			<td style="width: 20px; text-align:center">:</td>
+			<td><%= f.text_field :name, :required => true%></td>
+		</tr>
+
+		<tr>
+			<td><label>Description</label></td>
+			<td style="width: 20px; text-align:center">:</td>
+			<td>
+					<%= f.text_area :description, :rows => 5 %>
+			</td>
+		</tr>
+		<tr>
+			<td><label>Duration(minutes)</label></td>
+			<td style="width: 20px; text-align:center">:</td>
+			<td><%= f.text_field :duration, :required => true, :type => :number, :class => "number" %></td>
+		</tr>
+		<tr>
+			<td><label>Price</label></td>
+			<td style="width: 20px; text-align:center">:</td>
+			<td><%= f.text_field :charge, :required => true, :type => :number %></td>
+		</tr>
+
+		<tr>
+			<td><label>Category:</label></td>
+			<td style="width: 20px; text-align:center">:</td>
+			<td align="top"><%= select_tag "service[service_category_id]", options_for_select(@categories.collect{|c| [c.name.humanize, c.id]}, @service.service_category_id), :include_blank => true %>
+				<br/>
+				<%= link_to "Add Category", "#", :id => "add_category" %>
+				<%= hidden_field_tag "new_category", nil %>
+			</td>
+		</tr>
+
+
+	</table>
+	</div>
+</div>
+
+<script>
+	$(function(){
+		$("#add_category").click(function(){
+			var ans = prompt("Enter new category:");
+			array = new Array();
+			has_thesame = false;
+
+			if (ans != null) {
+				if (ans.trim() != ""){
+					$("#service_service_category_id option").each(function(indx){
+						
+						if (ans == $(this).text()) {
+							$("#service_service_category_id option").eq(indx).attr("selected", "selected");
+							$("#new_category").val('');
+							has_thesame = true;
+						}
+					});
+					
+					if (!has_thesame) {
+						$("#service_service_category_id").append(new Option(ans, "0"));
+						$("#service_service_category_id option").eq($("#service_service_category_id option").length-1).attr("selected", "selected");
+						$("#new_category").val(ans);
+					}
+					
+				}
+			}
+			
+		});
+	});
+</script>

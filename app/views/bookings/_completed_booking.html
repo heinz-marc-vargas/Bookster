@@ -1,0 +1,14 @@
+<div class="message info">
+		<h3>Booking Confirmed</h3>
+		<p>
+		  Service: <%= session[:service_name] %><br />
+		  Staff: <%= session[:staff_name] %><br />
+		  Date: <%= session[:event_date] %><br />
+			Time: <%= session[:timeslot] %><br /></br>
+		  Customer Name:&nbsp;<%= @customer.full_name rescue "N/A" %><br />
+		  Phone Number:&nbsp;<%= @customer.phone_number rescue "N/A" %><br />
+		  Email:&nbsp;<%= @customer.email rescue "N/A" %><br />
+			Comments:&nbsp;<%= @customer.comments rescue "N/A" %><br /><br />
+			Thank you for booking an appointment with us. An email has been sent to your email address (<%= @customer.user.email %>) with the booking details.
+		</p>
+</div>

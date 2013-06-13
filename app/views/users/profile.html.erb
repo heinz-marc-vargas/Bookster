@@ -1,0 +1,113 @@
+                    
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="heading"><%= t :user_details %></h3>
+		<div class="row-fluid">
+			<div class="span8">
+				
+				<%= form_for current_user, :url => profile_users_path, :html => { :remote => true, :class => "form-horizontal", :multipart => true } do |f| %>
+					<fieldset>
+						<div class="control-group formSep">
+							<label class="control-label"><%= t :email %></label>
+							<div class="controls text_line">
+								<strong><%= current_user.email%></strong>
+							</div>
+						</div>
+						
+						<div class="control-group formSep">
+							<label for="fileinput" class="control-label"><%= t :avatar %></label>
+							<div class="controls">
+								<div data-fileupload="image" class="fileupload fileupload-new">
+									<input type="hidden" />
+									<div style="width: 80px; height: 80px;" class="fileupload-new thumbnail">
+										<%= image_tag(@user.avatar.url, { :size=>"100x100" }) %>
+									</div>
+									<div style="width: 80px; height: 80px; line-height: 80px;" class="fileupload-preview fileupload-exists thumbnail"></div>
+									<span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" id="fileinput" name="fileinput" /></span>
+									<a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+								</div>	
+							</div>
+						</div>
+						
+						<div class="control-group formSep">
+							<label for="u_fname" class="control-label"><%= t :first_name %></label>
+							<div class="controls">
+								<%= f.text_field :first_name, :class => "input-xlarge" %>
+							</div>
+						</div>
+						<div class="control-group formSep">
+							<label for="u_fname" class="control-label"><%= t :last_name %></label>
+							<div class="controls">
+								<%= f.text_field :last_name, :class => "input-xlarge" %>
+							</div>
+						</div>
+						
+						<div class="control-group formSep">
+							<label for="u_password" class="control-label"><%= t :password %></label>
+							<div class="controls">
+								<div class="sepH_b">
+									<%= f.password_field :password, :class => "input-xlarge"%>
+									<span class="help-block"><%= t :user_enter_password %></span>
+								</div>
+								  <%= f.password_field :confirm_password, :class => "input-xlarge"%>
+								<span class="help-block"><%= t :confirm_password %></span>
+							</div>
+						</div>
+												
+						<div class="control-group formSep">
+							<label class="control-label"><%= t :gender %></label>
+							<div class="controls">
+								<label class="radio inline">
+									<%= f.radio_button :gender, "male", :checked => (current_user.gender == 'male') %>
+									Male
+								</label>
+								<label class="radio inline">
+									<%= f.radio_button :gender, "female", :checked => (current_user.gender == 'female') %>
+									Female
+								</label>
+							</div>
+						</div>
+
+						<div class="control-group formSep">
+							<label class="control-label"><%= t :status %></label>
+							<div class="controls">
+								<%= (@user.status == 0) ? (image_tag("adminium/st_offline.png") + " Inactive") : (image_tag("adminium/st_online.png") + " Active") %>
+							</div>
+						</div>
+												
+						<div class="control-group formSep">
+							<label class="control-label"><%= t :date_joined %></label>
+							<div class="controls">
+								<%= @user.created_at.to_formatted_s(:long) %>
+							</div>
+						</div>
+						
+						
+						<div class="control-group">
+							<div class="controls">
+								<button class="btn btn-gebo" type="submit"><%= t :save_changes %></button>
+							</div>
+						</div>
+					</fieldset>
+				<% end %>
+									
+									
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+	$('#back').click(function() {
+		Application.load_content("<%= users_path %>");
+	});
+
+	$('#refresh').click(function() {
+		Application.load_content("<%= profile_users_path %>");
+	});
+
+	$('#edit').click(function() {
+		Application.load_content("<%= url_for(:controller => :users, :action => :edit, :id => @user.id ) %>");
+	});
+</script>

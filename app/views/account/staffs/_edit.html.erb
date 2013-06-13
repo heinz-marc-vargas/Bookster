@@ -1,0 +1,55 @@
+<div class="row-fluid">
+  <div class="span12">
+
+		<h2 class="heading">Staff Details</h2>
+
+		<%= form_for([:account,@staff], :html => { :remote => true, :multipart => true }) do |f| %>
+
+      <%= f.hidden_field(:id, :value => @staff.id.to_s) %>
+
+      <div class="row-fluid">
+        <div class="span5">
+
+        	<%= render('/account/staffs/fields_for_user', :object => @staff) %>
+
+        	<%= render('/account/staffs/forms', :f => f) %>
+
+					<h3 class="heading">Services</h3>
+
+					<% @services.each do |s| %>
+					  <div class="control-group formSep">
+						  <div class="controls">
+						    <label class="checkbox inline">
+						      <%= check_box_tag("service_" + s.id.to_s, s.id.to_s, ((@staff.services.include? s) ? true : false)) %>
+						      <%= s.name %>
+						    </label>
+						  </div>
+						</div>
+				  <% end %>
+
+					<div class="control-group">
+						<div class="controls">
+							<%= submit_tag("Save Staff Details", { :class => "btn btn-primary" }) %>
+						  <%= link_to_function("Cancel", "Application.load_content('#{ account_staffs_path }');", :class => "btn") %>
+						</div>
+					</div>
+			  </div>
+
+				<div class="span7">
+          <%= render("/account/staffs/edit_staff_time") %>
+			  </div>
+		  </div>
+		<% end %>
+
+  </div>
+</div>
+
+<script>
+	$('#back').click(function() {
+		Application.load_content("<%= account_staffs_path %>");
+	});
+
+	$('#edit').click(function(){
+		Application.load_content("<%= edit_account_staff_path(@staff) %>");
+	});
+</script>

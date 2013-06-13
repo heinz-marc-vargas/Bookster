@@ -1,0 +1,49 @@
+<table width="100%" cellspacing="0" cellpadding="0" summary="Customer list" class="table table-hover table-nomargin dataTable table-bordered">
+  <thead>
+  <tr>
+    <th class="header" style="cursor:pointer;"><%= check_box_tag("mass", 0, false) %></th>
+    <th class="header" style="cursor: pointer;"><%= t :first_name %></th>
+    <th class="header" style="cursor: pointer;"><%= t :last_name %></th>
+    <th class="header" style="cursor: pointer;"><%= t :email %></th>
+    <th class="header" style="cursor: pointer;"><%= t :phone %></th>
+    <th class="header" style="cursor: pointer;"><%= t :action %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @customers.each do |customer| %>
+  <tr class="<%= cycle('even', 'odd') %>">
+    <td><%= check_box_tag("check_" + customer.id.to_s, customer.id, false, :class => "mass_check") %></td>
+    <td><%= customer.user.first_name %></td>
+    <td><%= customer.user.last_name %></td>
+    <td><%= customer.user.email %></td>
+    <td><%= customer.phone_number %></td>
+    <td>
+      <% if can?(:read, Customer) %>
+        <%= link_to(image_tag("icons/bbook.png"), "#", :class => "list_action", :id => ("view_" + customer.id.to_s), :title => (t :customer_view)) %>
+      <% end %>
+
+      <% if can?(:delete, Customer) %>
+        <%= link_to(image_tag("icons/ddelete.png"), "#", :class => "list_action", :id => ("delete_" + customer.id.to_s)) %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+<script>
+	$("#mass").click(function () {
+		if ($('#mass:checked').val() !== undefined) {
+			$(".mass_check").prop("checked", true); }
+		else {
+			$(".mass_check").prop("checked", false); }
+	});
+	$('.list_action').click(function() {
+	  var $p = $(this).attr("id").split('_');
+		var $url = "/" + $p[0] + "/" + $p[1];
+	  if ($p[0] == "delete") {
+		  if (!confirm("<%= t :customer_delete_confirm %>")) {
+			  return; }
+	  }
+    Application.load_content("<%= url_for(:controller => :customers) %>" + $url);
+	});
+</script>

@@ -1,0 +1,32 @@
+<%= fields_for(object.user) do |user| %>
+
+  <div class="control-group formSep <%= :error unless object.user.errors[:first_name].blank? %>">
+    <label><%= t(:first_name) %></label>
+    <%= user.text_field(:first_name) %>
+    <span class="help-block"><%= (object.user.errors :first_name) rescue "" %></span>
+  </div>
+
+	<div class="control-group formSep <%= :error unless object.user.errors[:last_name].blank? %>">
+		<label><%= t(:last_name) %></label>
+		<%= user.text_field(:last_name) %>
+		<span class="help-block"><%= (object.user.errors :last_name) rescue "" %></span>
+	</div>
+
+	<div class="control-group formSep <%= :error unless object.user.errors[:email].blank? %>">
+		<label><%= t(:email) %></label>
+		<%= (params[:id].nil?)? user.text_field(:email) : object.user.email %>
+		<span class="help-block"><%= (object.user.errors :email) rescue "" %></span>
+	</div>
+
+	<div class="control-group formSep <%= :error unless object.user.errors[:password].blank? %>">
+		<label><%= t(:password) %></label>
+		<%= user.text_field(:password) %>
+		<span class="help-block"><%= (object.user.errors :password) rescue "" %></span>
+	</div>
+
+  <div class="control-group formSep <%= :error unless object.user.errors[:password_confirmation].blank? %>">
+		<label><%= t(:user_confirm_password) %></label>
+		<%= user.text_field(:password_confirmation) %>
+		<span class="help-block"><%= (object.user.errors :password_confirmation) rescue "" %></span>
+	</div>
+<% end %>

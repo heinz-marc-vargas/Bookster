@@ -1,0 +1,7 @@
+<% if @company.errors.any? %>
+  Application.render_content("<%= escape_javascript(render('companies/edit')) %>")
+<% else %>
+  Application.load_content(
+    Routes.account_companies_path()
+  );
+<% end %>

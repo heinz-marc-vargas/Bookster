@@ -1,0 +1,14 @@
+<p><%= t('.customer_name') %>: <%= @review.customer.full_name %></p>
+<p><%= t :date %>: <%= @review.created_at.strftime("%B %d, %Y") %></p>
+
+<%= t('.review') %>:
+
+<p style="margin-top:10px;">
+	<%= @review.comment.gsub("\n", "<br/>").html_safe %>
+</p>
+
+<% if !@review.approved? %>
+	<%= link_to t('.approve_review'), approve_account_review_path(@review), :remote => true, :class => "btn btn-primary" %>
+<% else %>
+  <%= button_tag t('.approved'), :class => "btn btn-success" %>
+<% end %>

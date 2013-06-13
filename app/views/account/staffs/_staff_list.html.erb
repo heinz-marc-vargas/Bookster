@@ -1,0 +1,64 @@
+<table width="100%" cellspacing="0" cellpadding="0" summary="Staff list" class="table table-striped sortable">
+  <thead>
+  <tr>
+    <th class="header" style="cursor:pointer;"><%= check_box_tag("mass", 0, false) %></th>
+    <th class="header" style="cursor:pointer;"><%= t :photo %></th>
+    <th class="header" style="cursor:pointer;"><%= t :first_name %></th>
+    <th class="header" style="cursor:pointer;"><%= t :last_name %></th>
+    <th class="header" style="cursor:pointer;"><%= t :email %></th>
+    <th class="header" style="cursor:pointer;"><%= t :branch %></th>
+    <th class="header" style="cursor:pointer;"><%= t :description %></th>
+    <th class="header" style="cursor:pointer;"><center><%= t :status %></center></th>		
+    <th class="header" style="cursor:pointer;"><%= t :actions %></th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @staff_list.each do |staff| %>
+    <% if staff.user %>
+      <tr class="<%= cycle('even', 'odd') %>">
+        <td><%= check_box_tag("check_" + staff.id.to_s, staff.id, false, :class => "mass_check") %></td>
+        <td><%= image_tag(staff.photo.nil? ? "staff/default.jpg" : "staff/" + staff.id.to_s + staff.photo, { :size=>"30x30" }) %></td>
+        <td><%= staff.user.first_name %></td>
+        <td><%= staff.user.last_name %></td>
+        <td><%= staff.user.email %></td>
+        <td><%= staff.branch.name %></td>
+        <td><%= truncate((staff.description rescue "N/A"), :length => 50, :omission => '...') %></td>
+        <td><center><%= image_tag((staff.status == 0) ? "adminium/st_offline.png" : "adminium/st_online.png") %></center></td>
+        <td nowrap>
+          <div id="action_panel" class="action_panel">
+            <% if can?(:read, Staff) %>
+              <%= link_to(image_tag("icons/bbook.png"), "#", :class => "list_action", :id => ("view_" + staff.id.to_s), :title => (t :staff_view)) %>
+            <% end %>
+
+            <% if can?(:update, Staff) %>
+              <%= link_to(image_tag("icons/user_edit.png"), "#", :class => "list_action", :id => ("edit_" + staff.id.to_s), :title => (t :staff_edit)) %>
+            <% end %>
+
+            <% if can?(:delete, Staff) %>
+              <%= link_to(image_tag("icons/ddelete.png"), "#", :class => "list_action", :id => ("delete_" + staff.id.to_s)) %>
+            <% end %>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
+<script>
+	$("#mass").click(function () {
+		if ($('#mass:checked').val() !== undefined) {
+			$(".mass_check").prop("checked", true); }
+		else {
+			$(".mass_check").prop("checked", false); }
+	});
+	$('.list_action').click(function() {
+	  var $p = $(this).attr("id").split('_');
+		var $url = "/" + $p[0] + "/" + $p[1];
+	  if ($p[0] == "delete") {
+		  if (!confirm("Delete>")) {
+			  return; }
+	  }
+
+    Application.load_content("<%= url_for(:controller => :staff) %>" + $url);
+	});
+</script>

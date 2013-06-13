@@ -1,0 +1,12 @@
+<p>Hi <%= @user.first_name %>!</p>
+
+<br/><br/>
+
+  Your appointment information:<br/>
+  Service name: <%= @event.service.name rescue ''%><br/>
+  Date: <%= @event.starts_at.strftime("%B %d, %Y") rescue ''%><br/>
+  Time:  <%= @event.starts_at.strftime("%H:%M") rescue ''%><br/>
+
+
+<br/><br/>
+<%= @event.branch.name %>

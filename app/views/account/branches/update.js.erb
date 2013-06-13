@@ -1,0 +1,6 @@
+<% if @branch.errors.any? %>
+  Application.render_content("<%= escape_javascript(render('account/branches/edit')) %>")
+<% else %>
+	$(".company-progress-status").attr("data-id", "<%= @branch.company.progress_status %>")
+  Application.load_content(Routes.account_branches_path());
+<% end %>

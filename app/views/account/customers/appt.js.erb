@@ -1,0 +1,3 @@
+$("#customer-row2-<%= @customer.id%>").remove();
+$(".customer-row-<%= @customer.id%>").after('<%= escape_javascript(render(:partial => '/account/customers/appt_rows')) %>');
+

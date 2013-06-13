@@ -1,0 +1,7 @@
+<%
+branch_logo = @branch ? @branch.branch_logo.url(:thumb).to_s : ""
+booking_code = "<a href=\"#{bookings_url(:branch_id => @branch_id, :service_id => @service_id)}\">#{image_tag(root_url.to_s + branch_logo.to_s, :size => '200x80')}</a>"
+text_area = text_area_tag :book_tags, booking_code, { :style => "width: 500px; height: 75px;"}
+%>
+
+$(".book_tags_byservice").html("<%= escape_javascript(text_area) %>").fadeIn('slow');

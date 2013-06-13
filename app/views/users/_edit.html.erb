@@ -1,0 +1,48 @@
+<div class="row-fluid">
+  <div class="span12">
+    <h3 class="heading"><%= t 'users.user_profile' %></h3>
+
+    <div class="row-fluid">
+      <div class="span8">
+        <%= simple_form_for @user, :method => :put, :html => {:remote => true, :class => "form-horizontal"} do |f| %>
+          <%= f.hidden_field(:id, :value => @user.id) %>
+          <div class="control-group formSep">
+            <label class="control-label">Username</label>
+            <div class="controls text_line">
+              <strong><%= @user.full_name %></strong>
+            </div>
+          </div>
+
+          <div class="control-group formSep">
+          <%= f.input :first_name, label: t(:first_name) %>
+          <%= f.input :last_name, label: t(:last_name) %>
+          </div>
+          <div class="control-group formSep">
+          <%= f.input :email, label: t(:email) %>
+          </div>
+            
+          <div class="control-group formSep">
+          <%= f.input :password, label: t(:password) %>
+          <%= f.input :password_confirmation, label: t(:user_confirm_password) %>
+          </div>
+            
+          <%= f.input :country_id, collection: Country.all.collect {|c| [ c.language, c.id ]}, label: t(:language)%>
+          <%= f.input :role, :collection => User::ROLES %>      
+          <%= f.button :submit, "Save User Details" %>
+          <%= link_to_function("Cancel", "Application.load_content('#{users_path}');", :class => "btn") %>
+        <% end %>
+
+        <div id="assigned_companies">
+          <%= render :partial => 'assigned_companies', :locals => { :user => @user } %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    //* enhanced select
+  $("#user_role").chosen();
+  $("#user_country_id").chosen();
+</script>

@@ -1,0 +1,7 @@
+<% if @event.errors.any? %>
+Application.render_content("<%= escape_javascript(render('events/edit')) %>");
+<% else %>
+	Application.load_content(
+		"<%= list_account_events_path %>"
+	);
+<% end %>

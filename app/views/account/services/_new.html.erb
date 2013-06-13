@@ -1,0 +1,45 @@
+<div class="row-fluid">
+  <div class="span12">
+  	<h2 class="heading">New Service</h2>
+
+		<%= simple_form_for [:account, @service], :remote => true, :html => { :class => "form-horizontal" } do |f| %>
+			<div class="errors hide span7">
+			</div>
+		
+      <%= render("/account/services/forms", :f => f) %>
+
+			<br/>
+
+			<div class="">
+				<h3 class="heading"><%= t :staff %></h3>
+				<div class="alert alert-error hide" style="clear:both; width:200px;">Please select a staff</div>
+				<ul class="unstyled">
+	  		<% current_user.companies.first.staffs.each do |staff| %>
+			    <li>
+			      <%= check_box_tag "staff[]", staff.id, nil, :class => "staff" %>
+			      <%= staff.full_name.titleize %>
+			    </li>
+	  	  <% end %>
+	  	  </ul>
+      
+				 
+			</div>
+			
+			<div style="margin-top: 20px;">
+				<%= submit_tag "Save Changes", :class => "btn btn-gebo" %>
+				<%= link_to "Cancel", "#", :class => "btn", :id => "back" %>
+			</div>
+							
+		<% end %>
+
+	</div>
+</div>
+
+<script>
+
+	$('#back').click(function() {
+		Application.load_content("<%= account_services_path %>");
+	});
+	
+	//$("#new_service").validate();
+</script>

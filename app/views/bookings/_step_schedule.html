@@ -1,0 +1,106 @@
+<div class="span9">
+  <h4>
+    Choose your staff and schedule
+  </h4>
+  
+  <div class="image_carousel">
+  	<div id="staff" >
+      
+      <div class="staff-box selected" data-id="0" style="cursor:pointer;">
+  		  <img src="/assets/default-person.png" title="" alt="" width="65" height="90" />
+        <br/>
+        <span class="btn-small">Any</span>
+      </div>
+      
+      <% @branch.staff.each do |staf| %>
+      <div class="staff-box" data-id="<%= staf.id %>" style="cursor:pointer">
+  		  <img src="<%= staf.user.avatar.url(:thumb) %>" title="<%= staf.full_name %>" alt="<%= staf.full_name %>" width="65" height="90" />
+        <br/>
+        <span class="btn-small"><%= staf.user.first_name %></span>
+      </div>
+      <% end %>
+      
+  	</div>
+
+  	<a class="prev" id="staff_prev" href="#"><span>prev</span></a>
+  	<a class="next" id="staff_next" href="#"><span>next</span></a>
+  </div>
+  <%= hidden_field_tag :staff_id, 0 %>
+
+  <div class="clearfix"></div>
+
+  <%= iloader("schedule_loader") %>
+  
+  <div class="date-picker-div hide">
+    <%= render "date_picker" %>
+  </div>
+  
+  <div class="span9 available-time hide">
+    <%= render "available_time"%>
+  </div>
+  
+  <a name="sd"></a>
+  <div class="schedule-details clearfix span8 hide">
+    
+    <p style="border-color: #EDEDED; border-style: solid; border-width: 7px; padding:10px;" class="span5 pull-left">
+      <strong><span class="book-service"></span></strong> on 
+			<strong>
+				<span class="book-date"></span> at <span class="book-time"></span>
+			</strong>
+			<span> 
+				with <span class="book-staff"></span>
+			</span>
+		</p>
+    <%= button_tag "Continue", :class => "book-schedule btn btn-large btn-primary pull-right", :style => "right: 40px; position:relative; margin-top:3px;"%>
+  </div>
+</div>
+
+
+<script>
+$(document).ready(function() {
+  $(".book-schedule").click(function(){
+    var staff_id = $("#staff_id").val();
+    var date = $("#sdatepicker").val();
+    var bid = "<%= params[:bid] %>";
+    var sid = "<%= params[:sid] %>";
+    var time = $(".book-time").text();
+  
+    window.location.href = "/?bid=" + bid + "&sid=" + sid + "&staffid=" + staff_id + "&date=" + date + "&time=" + time + "&step=4";
+  });
+  
+  
+  $(".staff-box").click(function(){
+    var staff_id = $(this).attr("data-id");
+    $(".staff-box").removeClass("selected");
+    $(this).addClass("selected");
+    $("#staff_id").val(staff_id);
+
+    var bid = "<%= params[:bid] %>";
+    var sid = "<%= params[:sid] %>";
+    
+    $(".date-picker-div").hide();
+    $(".available-time").hide();
+    $(".schedule-details").hide();
+
+    $("#schedule_loader").show();    
+    $.get("/bookings/update_calendar.js", { bid: bid, sid: sid, staffid: staff_id });
+  });
+
+  $(".timeslot").live("click",function(){
+    var time    = $(this).attr("data-timeslot");
+    var staff   = $(this).attr("data-staff-name");
+    var service = $(this).attr("data-service-name");
+    var date    = $(this).attr("data-date");
+    
+    $(".book-date").text(date);
+    $(".book-time").text(time);
+    $(".book-staff").text(staff);
+    $(".book-service").text(service);
+    
+    $(".schedule-details").hide();
+    $('.schedule-details').slideDown('slow');
+    $(".schedule-details").delay(800).fadeIn(400);
+  });
+  
+});  
+</script>

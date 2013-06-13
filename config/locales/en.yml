@@ -1,0 +1,364 @@
+en:
+  # General
+  country: "Country"
+  cancel: "Cancel"
+  are_you_sure: "Are you sure?"
+  are_you_sure_delete: "Are you sure you want to delete %s ?"
+  search: "Search"
+  welcome: "Welcome"
+  hb_found: "found"
+  profile: "Profile"
+  name: "Name"
+  date: "Date"
+  time: "Time"
+  description: "Description"
+  alias: "Alias"
+  tel: "Phone Number"
+  display_email: "Display Email"
+  display_phone: "Display Phone"
+  duration: "Duration"
+  charge: "Charge"
+  details: "Details"
+  delete: "Delete %s?"
+  apply_to_selected: "Apply To Seleted"
+  refresh: "Refresh"
+  back_to_list: "Back to list"
+  cancel_back_to_list: "Cancel & return to list"
+  status: "Status"
+  reset_page: "Reset Page"
+  save_changes: "Save Changes"
+  language: "Language"
+  select_service: "Select a Service"
+  morning: "Morning"
+  afternoon: "Afternoon"
+  timeslots: "Timeslots"
+  number_of: "Number of "
+  subdomain: "Subdomain"
+  loading_data: "Loading data from server"
+  avatar: "Avatar"
+  gender: "Gender"
+  date_joined: "Date Joined"
+  generate_button: "Generate Button"
+  close: "Close"
+  business_name: "Business Name"
+  company_list: "Company List"
+  forget_password: "Forgot your password?"
+  request_new_password: "Request New Password"
+  business_details: "Business Details"
+  notifications: "Notifications"
+  change_lang: "Change Language"
+  welcome: "Welcome"
+  customer: "Customer"
+  no_match_records: "No matching records founds."
+
+
+  #Login/Logout
+  login: "Login"
+  logout: "Logout"
+  please_login: "Please login"
+  logged_in: "You are now logged in."
+  invalid_login: "Invalid username/password combination."
+  logged_out: "You have been logged out."
+  create_an_account: "Create an Account"
+  successfully_activated: "Your account has been successfully activated. Please login to setup your website."
+
+  user: "User"
+  users: "Users"
+  users_l: "users"
+  company: "Company"
+  companies: "Companies"
+  companies_l: "companies"
+  bookings: "Bookings"
+  bookings_l: "bookings"
+  branch: "Branch"
+  branches: "Branches"
+  branches_l: "branches"
+  staff: "Staff"
+  staff_l: "staff"
+  services: "Services"
+  service: "Service"
+  services_l: "services"
+  appointments: "Appointments"
+  appointments_l: "appointments"
+  customers: "Customers"
+  customers_l: "customers"
+  user_name: "User name"
+  first_name: "First name"
+  last_name: "Last name"
+  email: "Email"
+  phone: "Phone number"
+  password: "Password"
+  photo: "Photo"
+  confirm_password: "Confirm Password"
+  update_password: "Update Password"
+  actions: "Actions"
+  search_results: "Search results for:"
+  total: "Total"
+  date_started: "Date Started"
+  minutes: 'minutes'
+
+  # Admin Side Menu
+  menu_users: "Users"
+  menu_companies: "Companies"
+  menu_branches: "Branches"
+  menu_calendar: "Calendar"
+  menu_appointments: "Appointments"
+  menu_myappointments: "My Appointments"
+  menu_staff: "Staff"
+  menu_services: "Services"
+  menu_customers: "Customers"
+  menu_settings: "Settings"
+  menu_reviews: "Reviews"
+  menu_calculator: "Calculator"
+  menu_dashboard: "Dashboard"
+
+  users_update_avatar: "Update Avatar"
+  users_reset_password: "Reset Password"
+  users_add: "Add New User"
+  users_edit: "Edit User"
+  users_delete: "Delete User"
+  users_added_new: "New user has been added."
+  users_saved: "Changes to %s have been successfully saved."
+  user_deleted: "%s has been deleted."
+
+  staff_list: "List Staff"
+  staff_close_date: "Staff Leave Days"
+  staff_away_date: "Staff Away Dates"
+  staff_new: "Add New Staff"
+  staff_view: "View Staff"
+  staff_edit: "Edit Staff"
+  staff_details: "Staff Details"
+  staff_name: "Staff Name"
+  staff_added_new: "New staff %s has been added to %s."
+  staff_saved: "Changes to %s have been successfully saved."
+  staff_deleted: "%s has been deleted."
+  staff_mass_updated: "%d staff records have been updated."
+  staff_mass_deleted: "%d staff records have been deleted."
+  staff_edit_photo: "Update Photo"
+  staff_no_services: "This staff member has no services."
+  staff_no_appointments: "This staff member has no appointments."
+  staff_date_started: "Date Started"
+  staff_years_experience: "Years Experience"
+  staff_comments: "Comments"
+  staff_select: "Select Staff"
+
+  service_new: "Add New Service"
+  service_view: "View Service"
+  service_edit: "Edit Service"
+  service_details: "Service Details"
+  service_saved: "Changes to %s have been successfully saved."
+  service_delete_confirm: "Delete this service?"
+  service_added_new: "New service %s has been added to %s."
+  service_deleted: "%s has been deleted."
+  service_mass_updated: "%d service details have been updated."
+  service_mass_deleted: "%d service details have been deleted."
+  validation_can_only_be_whole_number: "can only be whole number."
+
+  customer_new: "Add New Customer"
+  customer_view: "View Customer"
+  customer_edit: "Edit Customer"
+  customer_delete_confirm: "Delete this customer?"
+  customer_deleted: "%s has been deleted."
+  customer_mass_updated: "%d customer details have been updated."
+  customer_mass_deleted: "%d customers have been deleted."
+
+
+  user_new: "Add New User"
+  user_view: "View User"
+  user_edit: "Edit User"
+  user_delete_confirm: "Delete this user?"
+  user_details: "User Details"
+  user_new_details: "New User Details"
+  user_added_new: "New user %s has been added to %s."
+  user_saved: "Changes to %s have been successfully saved."
+  user_deleted: "%s has been deleted."
+  user_mass_updated: "%d user records have been updated."
+  user_mass_deleted: "%d user records have been deleted."
+  user_edit_photo: "Update Photo"
+  user_no_users: "This user member has no users."
+  user_no_appointments: "This user member has no appointments."
+  user_name: "Username"
+  user_confirm_password: "Confirm Password"
+  user_enter_password: "Enter your password"
+  user_repeat_password: "Repeat password"
+  user_saved_details: "Save User Details"
+
+  event_new: "Add New Appointment"
+  event_view: "View Appointment"
+  event_edit: "Edit Appointment"
+  event_details: "Appointment Details"
+  event_added_new: "New appointment %s has been added to %s."
+  event_saved: "Changes to %s have been successfully saved."
+  event_deleted: "Event has been deleted."
+  event_updated: "Event has been updated"
+  event_mass_updated: "%d appointments have been updated."
+  event_mass_deleted: "%d appointments have been deleted."
+  event_confirm_delete: "Delete this event?"
+  service_confirm_delete: "Delete this service?"
+  
+  smorning date selection: "午後"
+  
+  add_company: "Add Company"
+  revoke_company: "Revoke Company"
+
+  activerecord:
+    attributes:
+      user:
+        role: "Role"
+
+  steps:
+    save_and_next: "Save and Next"
+    account_setup_wizard: "Account Setup Wizard"
+    business:
+      subdomain: "Subdomain name"
+      contact_firstname: "Contact Person Firstname"
+      contact_lastname: "Contact Person Lastname"
+      contact_number: "Contact Number"
+      website: "Website"
+      business_category: "Business Category"
+      street: "Street"
+      city: "City"
+      state: "State"
+      postal: "Postal Code"
+      country: "Country"
+
+  account:
+    
+    customers:
+      index:
+        customer_name: "Customer Name"
+    dashboard:
+      no_new_appts: "You have no new appointments."
+    
+    companies:
+      buttons:
+        booknow_button_desc: "Place a Booknow button on your website"
+      text: "Companies"
+      company_logo: "Company Logo"
+      company_name: "Company Name"
+      index:
+        add_company: "Add new Company"
+      form:
+        subdomain_note: "subdomain like 'companyname'"
+      delete:
+        success: "The company %{name} was successfully removed"
+      branches_list:
+        title: "Branches"
+      confirm_delete: "Are you sure?"
+    
+      new:
+        company_details: "Company Details"
+        save_company: "Save Company Details"
+      edit:
+        company_details: "Company Details"
+        save_company: "Save Company Details"
+      details:
+        business_details: "Business Details"
+        saved_successfully: "Business details updated successfully."
+        company_url: "Company URL"
+        contact_person: "Contact Person"
+        contact_number: "Contact Number"
+        website: "Website"
+        business_type: "Business Type"
+        address: "Address"
+        zipcode: "Zip Code"
+        city: "City"
+        state: "State"
+        
+      notifications:
+        saved_successfully: "Business notification settings updated successfully."
+      
+      
+
+    users:
+      assign_company:
+        title: "Companies"
+        add_company: "Add Company"
+        exclude_company: "Exclude Company"
+      user_profile: "User Profile"
+      confirm_delete: "Are you sure?"
+
+
+    events:
+      view:
+        edit: "Edit Appointment"
+      todays_appointment:
+        title: "Today's Appointments"
+      table_options:
+        select:
+          service: "Select Service"
+          staff: "Select Staff"
+          start_date: "Select Start Date"
+          end_date: "Select End Date"
+
+    branches:
+      index:
+        add_new: "Add new"
+      title: "Branches"
+      forms:
+        branch_name: "Branch Name"
+      new:
+        subdomain_note: "subdomain like 'branchename'"
+        new_branch: "New Branch"
+        operating_hours: "Operating Hours"
+        save_branch: "Save Branch"
+      edit:
+        subdomain_note: "subdomain like 'branchename'"
+        confirm_delete: "Are you sure?" 
+        branch_details: "Branch Details"
+        operating_hours: "Operating Hours"
+        save_branch: "Save branch"
+      list:
+        branch_logo: "Branch Logo"
+        add_new: "Add new Branch"
+        branch_name: "Branch Name"
+        branch_subdomain: "Branch SubDomain"
+        branch_address: "Branch Address"
+        operate_days: "Operating Days & Hours"
+
+    customer_booking:
+      credit_card_panel:
+        account_holder: "Holder Name"
+        account_brand: "Name on Card"
+        account_number: "Card Number"
+        expiration:
+          label: "Expiration"
+          year: "Year"
+          month: "Month"
+        account_verification: "Credit Card Code (CVV)"
+      appointments:
+        pick_a_branch: "Pick A Branch"
+        select_a_service: "Select A Service"
+        select_staff_and_time: "Select Staff and Time"
+        your_details: "Your Details"
+        confirmation: "Confirmation"
+        available_services: "Available Services"
+        reviews: "Reviews"
+
+    services:
+      delete:
+        success: "The service %{name} was successfully removed"
+
+    application:
+      terms_of_use: "Terms of Use text..."
+
+    reviews:
+      index:
+        customer_name: "Customer name"
+        service_availed: "Service Availed"
+        date_submitted: "Date Submitted"
+      view:
+        customer_name: "Customer name"
+        review: "Review"
+        approve_review: "Approve this review"
+        approved: "Approved"
+      new:
+        invalid_link: "This is an invalid link."
+        create_for: "Create Review for %s"
+        branch_name: "Branch Name"
+        staff_name: "Staff name (optional)"
+        review_content: "Review content"
+        rate_our_service: "Rate our service( 5 is the highest)"
+      create:
+        thankyou: "Thank you for sending your review."
+        submit_review: "Submit Review"

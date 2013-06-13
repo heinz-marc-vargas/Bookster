@@ -1,0 +1,117 @@
+<script>
+	$(function() {
+		$( "#datepicker" ).datepicker({
+			altField: "#slot_date",
+			altFormat: "DD, MM d",
+      onSelect: function(dateText, inst) {
+        $("#time_selector_panel").load("/bookings/update_timeslots?event_date=" + dateText);
+	    }
+		});
+	});
+</script>
+<div id="staff_selector" style="display:inline;">
+	<table>
+		<tr>
+			<td width="250px;">
+        <div id="datepicker"></div>
+			</td>
+			<td width="450px;">
+				<div>
+				<h3><%= (t :staff_select) %></h3>
+				<% tstyle = "width:450px;" %>
+				<% staff_ui_id = 0 %>
+				<% @staff.each do | staff | %>
+				<div id="staff_panel_<%= staff_ui_id %>" style="<%= tstyle %>">
+					<table style="vertical-align:top;">
+						<tr>
+							<td>
+								<table style="width:15px; vertical-align:top;">
+									<tr style="width:15px; vertical-align:top;">
+										<td style="width:15px; vertical-align:top;">
+											<a href='#' id="staff_prev_<%= staff_ui_id %>" class="staff_prev"><%= image_tag("icons/127190-simple-black-square-icon-media-media2-arrow-up.png", { :size=>"40x40" }) %></a><br />
+											<a href='#' id="staff_next_<%= staff_ui_id %>" class="staff_next"><%= image_tag("icons/127189-simple-black-square-icon-media-media2-arrow-down.png", { :size=>"40x40" }) %></a>
+										</td>
+									</tr>
+								</table>
+							</td>
+							<td width="120px;">
+								<table cellpadding="10px;">
+									<tr><td><%= image_tag(staff.photo.nil? ? "staff/default.jpg" : "staff/" + staff.id.to_s + staff.photo, { :size=>"100x100" }) %></td></tr>
+								</table>
+							</td>
+							<td style="vertical-align:top;">
+								<table width="290px;">
+									<tr>
+									  <td>
+									    <b><%= (staff.alias.nil?)? ((staff.user.nil?)? "No Name" : staff.user.full_name) : staff.alias %><%#= staff.full_name %></b></b>
+									    <input id="staff_db_id_<%= staff_ui_id %>" type="hidden" value="<%= staff.id %>"/>
+									    <!--<input id="staff_name_<%= staff.id %>" type="hidden" value="<%#= staff.user.full_name %>"/>-->
+									    <input id="staff_name_<%= staff.id %>" type="hidden" value="<%= (staff.alias.nil?)? ((staff.user.nil?)? "No Name" : staff.user.full_name) : staff.alias %><%#= staff.full_name %>"/>
+									  </td>
+									</tr>
+<% if (staff.display_email == true && staff.user != nil) %>
+                  <tr>
+                    <td><%= mail_to(staff.user.email, staff.user.email, :encode => "hex") %></td>
+                  </tr>
+<% end %>
+<% if (staff.display_phone == true && staff.user != nil) %>
+                  <tr>
+                    <td><%= staff.tel %></td>
+                  </tr>
+<% end %>
+                  <tr><td>&nbsp;</td></tr>
+									<tr><td><%= staff.description %></td></tr>
+									<tr><td>&nbsp;</td></tr>
+									<tr><td><b><%= (t :staff_date_started) %>:</b>&nbsp;<%= staff.date_started %></td></tr>
+									<tr><td><b><%= (t :staff_years_experience) %>:</b>&nbsp;<%= staff.years_exp %></td></tr>
+									<tr><td><b><%= (t :staff_comments) %>:</b>&nbsp;<%= staff.comments %></td></tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+				<% tstyle = "width:300px;display:none;" %>
+				<% staff_ui_id = staff_ui_id + 1 %>
+				<% end %>
+</div>
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<div style="display:inline;float:right;">
+					<table style="width:700px;">
+						<tr>
+							<td>
+								<table style="padding:20px;">
+									<tr><td><center><input type="text" id="slot_date" class="slot_date" size="25" style="border:0px;text-align:center;"/></center><br /></td></tr>
+									<tr><td><div id="time_selector_panel"><%= render :partial => "timeslots" %></div></td></tr>
+								</table>
+							</td>
+						</tr>
+					</table>
+				</div>
+		  </td>
+		</tr>
+	</table>
+</div>
+<script>
+	$(".staff_next").click(function() {
+    var $hide_id = $(this).attr("id").split('_')[2];
+    if ($hide_id == <%= @staff.count - 1 %>)
+       var $show_id = 0;
+    else
+       var $show_id = parseInt($hide_id) + 1;
+		$("#staff_panel_" + $hide_id).slideUp("slow");
+		$("#staff_panel_" + $show_id.toString()).slideDown("slow");
+    $("#time_selector_panel").load("/bookings/update_timeslots?staff_filter=" + $("#staff_db_id_" + $show_id.toString()).attr("value"));
+	});
+	$(".staff_prev").click(function() {
+    var $hide_id = $(this).attr("id").split('_')[2];
+    var $show_id = parseInt($hide_id) - 1;
+    if ($hide_id == 0)
+      $show_id = <%= @staff.count - 1 %>;
+		$("#staff_panel_" + $hide_id).slideUp("slow");
+		$("#staff_panel_" + $show_id.toString()).slideDown("slow");
+    $("#time_selector_panel").load("/bookings/update_timeslots?staff_filter=" + $("#staff_db_id_" + $show_id.toString()).attr("value"));
+	});
+</script>

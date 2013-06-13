@@ -1,0 +1,14 @@
+<h2>Customers</h2>
+
+	<div class="tableactions" style="float:right;">
+    <input id="back" type="button" class="btn" value="<%= t :refresh %>" />&nbsp;
+  </div>
+
+<script>
+	$('#add').click(function() {
+		Application.load_content("<%= new_account_customer_path %>");
+	});
+	$('#back').click(function() {
+		Application.load_content("<%= account_customers_path %>");
+	});
+</script>

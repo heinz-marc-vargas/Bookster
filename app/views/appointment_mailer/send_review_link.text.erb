@@ -1,0 +1,11 @@
+Hello <%= @customer.full_name %>!
+
+You have just completed the service from <%= @branch.company.name %>. It would be greatly appreciated if you can send
+us your comments or suggestions in order to improve our service. Please click the link below to view the form.
+
+<%= @review_link.link %>
+
+
+
+Best Regards,
+<%= @branch.company.name %>

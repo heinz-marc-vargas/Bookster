@@ -1,0 +1,39 @@
+ <h2><%= t :staff %></h2>
+
+<% if @company.id %>
+	<div class="head_controls">
+	  <% if can?(:add, Staff) %>
+	    <input id="add" type="button" class="btn" value="<%= t :staff_new %>" />
+	  <% end %>
+    <input id="back" type="button" class="btn" value="<%= t :refresh %>" />&nbsp;
+  </div>
+
+<% end %>
+
+<!--
+<% if !current_user.has_role?(:staff) %>
+  <div class="select_country">
+    <%= select_tag(:company_id,
+          options_from_collection_for_select(current_user.companies_list, :id, :name, @company.id),
+          :prompt => t('.select_company')
+        ) %>
+  </div>
+<% end %>
+-->
+
+<script>
+	$('#add').click(function() {
+		Application.load_content("<%= new_account_staff_path %>");
+	});
+
+	$('#back').click(function() {
+		Application.load_content("<%= account_staffs_path %>");
+	});
+
+	$("#company_id").change(function(){
+		if($(this).val() != "")
+		{
+	    Application.load_content(Routes.account_staffs_path({company_id: $(this).val()}));
+	  }
+	});
+</script>

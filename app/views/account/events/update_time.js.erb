@@ -1,0 +1,6 @@
+<% if @result %>
+  //alert("<% t('.message.success') %>");
+<% else %>
+  //alert("<% t('.message.error') %>");
+<% end %>
+console.log("<%= @result.inspect %>");

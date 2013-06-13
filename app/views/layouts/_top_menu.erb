@@ -1,0 +1,25 @@
+<div id="main-nav">
+  <ul class="clearfix">
+    <li class="tab<% if session[:active_main_tab] == "calendar" %> active<% else %>class="tab active"<% end %>">
+      <a href="<%= url_for(:controller => 'calendar') %>"><span><%= image_tag("icons/ccalendar.png") %>&nbsp;カレンダー</span></a>
+    </li>
+    <li class="tab<% if session[:active_main_tab] == "events" %> active<% else %>class="tab active"<% end %>">
+      <a href="<%= url_for(:controller => 'events', :action => 'list') %>"><span><%= image_tag("icons/clock.png") %>&nbsp;アポイントメント</span></a>
+    </li>
+    <li class="tab<% if session[:active_main_tab] == "users" %> active<% else %>class="tab active"<% end %>">
+      <a href="<%= url_for(:controller => 'users', :action => 'list') %>"><span><%= image_tag("icons/user.png") %>&nbsp;ユーザー</span></a>
+    </li>
+    <li class="tab<% if session[:active_main_tab] == "staff" %> active<% else %>class="tab active"<% end %>">
+      <a href="<%= url_for(:controller => 'staff', :action => 'list') %>"><span><%= image_tag("icons/emoticon_smile.png") %>&nbsp;スタッフ</span></a>
+    </li>
+    <li class="tab<% if session[:active_main_tab] == "services" %> active<% else %>class="tab active"<% end %>">
+      <a href="<%= url_for(:controller => 'services', :action => 'list') %>"><span><%= image_tag("icons/bbook.png") %>&nbsp;サービス</span></a>
+    </li>
+		<li class="tab<% if session[:active_main_tab] == "companies" %> active<% else %>class="tab active"<% end %>">
+      <a href="<%= url_for(:controller => 'companies', :action => 'list') %>"><span><%= image_tag("icons/house_1_sml.png") %>&nbsp;カンパニー</span></a>
+    </li>
+		<li class="tab<% if session[:active_main_tab] == "branches" %> active<% else %>class="tab active"<% end %>">
+      <a href="<%= branches_path %>"><span><%= image_tag("icons/house_3_sml.png") %>&nbsp;支店</span></a>
+    </li>
+  </ul>
+</div>

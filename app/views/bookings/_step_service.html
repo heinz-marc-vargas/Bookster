@@ -1,0 +1,8 @@
+<div class="span8">
+  <h4>Services offered by <%= @branch.name.titleize%></h4>
+
+  <p>&nbsp;</p>
+  <% @branch.services.each do |service|%>
+    <%= render "service_row", :service => service %>
+  <% end %>
+</div>

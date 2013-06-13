@@ -1,0 +1,56 @@
+<div class="row-fluid">
+  <div class="span12">
+
+		<h2 class="heading">Staff Details</h2>
+
+		<%= simple_form_for [:account,@staff], :url => account_staffs_path, :html => { :multipart => true }, :remote => true do |f| %>
+
+      <div class="row-fluid">
+		    <div class="span5">
+		    	<div class="errors hide">
+		    		
+		    	</div>
+
+					<%= render('/account/staffs/fields_for_user', :object => @staff) %>
+
+          <%= render('/account/staffs/forms', :f => f) %>
+
+					<h3 class="heading">Services</h3>
+					
+<%         if (!@services.empty?)
+					   @services.each do |s| %>
+						<div class="control-group formSep">
+						  <div class="controls">
+						    <label class="checkbox inline">
+						      <%= check_box_tag("service_" + s.id.to_s, s.id.to_s, ((@staff.services.include? s) ? true : false)) %>
+						      <%= s.name %>
+						    </label>
+						  </div>
+						</div>
+				  <% end %>
+<%         else %>
+           <p>No Services Configured.</p>
+         
+<%         end %>
+				  <div class="control-group">
+						<div class="controls">
+							<%= f.submit "Save Staff Details", :class => "btn btn-primary" %>
+						  <%= link_to_function("Cancel", "Application.load_content('#{account_staffs_path}');", :class => "btn") %>
+						</div>
+					</div>
+			  </div>
+
+		    <div class="span7">
+          <%= render("/account/staffs/new_staff_time") %>
+			  </div>
+			</div>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#staff_description").autosize();
+
+  $("#staff_branch_id").chosen();
+</script>
+

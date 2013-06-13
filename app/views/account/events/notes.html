@@ -1,0 +1,41 @@
+<div class="row-fluid">
+	<div class="span12">
+		<div class="vcard">
+
+			<ul style="margin-left: 0px !important" class="unstyled">
+				<li class="v-heading ">
+					Note(s)
+					<%= link_to "Add note", "#", :id => "add-note-link", :class => "pull-right" %>
+				</li>
+			</ul>
+
+			<div id="add-note" class="hide" style="margin-top: 10px;">
+				<%= form_for :note, :url => add_note_account_event_path(@event), :html => { :remote => true, :id => "add-note-form" } do |f| %>
+					<%= f.hidden_field :user_id, { :value => current_user.id } %>
+					<%= f.text_area :contents, { :style => "height: 70px; width: 400px"} %>
+					<br/>
+					<%= submit_tag "Add Note" %>
+					<%= span_loader("note-loader") %>
+				<% end %>
+			</div>
+
+			
+			<ul id="notes-list" style="margin-left: 0px !important" class="unstyled">	
+				<% @event.notes.order("created_at desc").each do |note| %>
+					<%= render "note-row", :note => note %>
+				<% end %>
+			</ul>
+			
+		</div>
+	</div>
+</div>
+
+<script>
+	$("#add-note-form").submit(function(){
+		$("#note-loader").show();
+	})
+	
+	$("#add-note-link").click(function(){
+		$("#add-note").show().slideDown();
+	})
+</script>

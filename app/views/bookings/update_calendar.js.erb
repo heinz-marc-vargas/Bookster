@@ -1,0 +1,13 @@
+$("#schedule_loader").hide();
+$(".date-picker-div").html("<%= escape_javascript(render("date_picker")) %>").fadeIn();
+
+disabledDays = Array(
+<% @closed_dates.each do |cd| %>
+  "<%= "#{cd.month.to_i}-#{cd.day.to_i}-#{cd.year.to_i}" %>"
+  <% if @closed_dates.index(cd) < (@closed_dates.length - 1) %>
+  ,
+  <% end %>
+<% end %>
+);
+
+nowork_days = Array(<%= @branch.off_days_of_week.join(",") %>);

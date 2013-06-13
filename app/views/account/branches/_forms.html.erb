@@ -1,0 +1,33 @@
+<%= f.hidden_field(:id, :value => @branch.id.to_s) %>
+
+<% collection = (current_user.has_role?(:admin) ? Company.all : (@branch.new_record? ? current_user.companies_for_new_branch : current_user.companies)).collect {|c| [ c.name, c.id ] } %>
+
+Logo: <%= image_tag @branch.branch_logo.url(:thumb) %>
+<span class="btn btn-file">
+  <span class="fileupload-new">Select image</span>
+  <input type="file" id="logo" name="logo" />
+</span>
+
+
+<% if current_user.role == 'admin' %>
+	<%= f.input :company_id, collection: collection, label: t(:company) %>
+<% else %>
+  <%= f.hidden_field(:company_id, :value => current_user.companies.first.id) %>
+<% end %>
+
+<%= f.input :name, label: t('.branch_name') , :required => true %>
+<%= f.input :contact_firstname, :required => true %>
+<%= f.input :contact_lastname, :required => true %>
+
+<%= f.input :address_1 %>
+<%= f.input :city %>
+<%= f.input :state %>
+<%= f.input :zipcode, :class => "validZipCode" %>
+<%= f.input :country_id, collection: Country.all.collect {|c| [ c.name, c.id ] }, label: t(:country), :required => true %>
+
+<script type="text/javascript">
+	<% if current_user.role == 'admin'%>
+  //$("#branch_company_id").chosen();
+  <% end %>
+  //$("#branch_country_id").chosen();
+</script>

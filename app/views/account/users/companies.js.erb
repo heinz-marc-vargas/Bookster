@@ -1,0 +1,21 @@
+<% result = capture do %>
+  <% form_for(:user, :url => assign_company_account_user_path(@user.id), :remote => true, :class => "form-horizontal") do |f| %>
+    <fieldset>
+      <div class="control-group formSep">
+        <div class="controls">
+          <%= f.select(:companies, @user.unassigned_company_drop_down, :include_blank => true, :class => "span8") %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <div class="controls">
+          <%= submit_tag(t(:add_company), { :class => "btn btn-primary btn-small" }) %>
+        </div>
+      </div>
+    </fieldset>
+  <% end %>
+<% end %>
+
+$('#assigned_companies .companies .add_new_company').html("<%=j result %>");
+
+$("#user_companies").chosen();

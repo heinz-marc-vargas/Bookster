@@ -1,0 +1,3 @@
+<% @event.notes.order("created_at DESC").each do |note| %>
+	<%= render "note-row", :note => note %>
+<% end %>

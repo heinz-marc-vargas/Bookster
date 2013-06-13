@@ -1,0 +1,25 @@
+<div class="row-fluid">
+	<div class="span12">
+		<h3 class="heading"><%= t('.company_details')%></h3>
+
+		<div class="row-fluid">
+			<div class="span8">
+        <%= simple_form_for [:account, @company], remote: true, html: {multipart: true, class: "form-horizontal"} do |f| %>
+			    <%= render("form", :f => f) %>
+			    <div class="control-group">
+						<div class="controls">
+							<%= f.submit(t('.save_company'), {:class => "btn btn-primary"}) %>
+						  <%= link_to_function("Cancel", "Application.load_content(Routes.account_companies_path())", :class => "btn") %>
+						</div>
+					</div>
+
+			  <% end %>
+
+			</div>
+	  </div>
+	</div>
+</div>
+
+<script type="text/javascript">
+  $("#company_description").autosize();
+</script>

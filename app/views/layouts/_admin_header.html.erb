@@ -1,0 +1,53 @@
+<div id="navigation">
+  <div class="container-fluid">
+    <a href="<%= account_dashboard_path %>" id="brand"><%= @company.name.titleize rescue ''%></a>
+    <a href="#" class="toggle-nav" rel="tooltip" data-placement="bottom" title="Toggle navigation"><i class="icon-reorder"></i></a>
+		
+    <div class="user">
+      <ul class="icon-nav">
+        <li>
+          <a data-placement="bottom" title="" rel="tooltip" class="lock-screen" href="<%= @company.subdomain_url %>" data-original-title="View site"><i class="icon-globe"></i></a>
+        </li>
+<li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#" rel="tooltip" data-placement="bottom" data-original-title="<%= t :change_lang %>"><i class="<%= show_current_lang%>"></i></a>
+                        <ul class="dropdown-menu pull-right message-ul">
+                            <li>
+                                <a href="<%= account_dashboard_url %>?lang=ja">
+                                    <div class="message">
+                                        <i class="flag-jp"></i> Japanese
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="<%= account_dashboard_url %>?lang=en">
+                                    <div class="message">
+                                      <i class="flag-us"></i> English
+                                    </div>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+      </ul>      
+      
+      <div class="dropdown">
+				<a href="#" class='dropdown-toggle' data-toggle="dropdown">
+          <% puts current_user.inspect %>
+        	 <%= current_user.full_name %>
+          <%= image_tag current_user.avatar.url(:thumb), :size => "23x23", :alt => '' rescue ''%>
+        </a>
+				<ul class="dropdown-menu pull-right">
+      		<% case current_user.role.to_s %>
+      		<% when "admin"%>
+                <%= render "layouts/admin_menu"%>
+      		<% when "customer"%>
+            <%= render "layouts/customer_menu"%>
+          <% when "owner","staff"%>
+                <%= render "layouts/owner_menu"%>
+      		<% end %>          
+          
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

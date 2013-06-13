@@ -1,0 +1,47 @@
+<div class="textbox">
+  <h2>
+    <%= t :user_details %>
+    <div class="tableactions" style="float:right;"><input id="back" type="button" class="btn btn-primary" value="<%= t :back_to_list %>" /></div>
+    <div class="tableactions" style="float:right;"><input id="edit" type="button" class="btn btn-primary" value="<%= t :users_edit %>" />&nbsp;&nbsp;</div>
+
+  </h2>
+  <div class="textbox_content">
+    <div>
+      <%= image_tag(@user.avatar.url, :size=>"100x100" ) %>
+    </div>
+    <div>
+      <div><strong><%= t :first_name %>:</strong>&nbsp;&nbsp;</div>
+      <span style="text-align:right;"><%= @user.first_name %></span>
+    </div>
+    <div>
+      <div><strong><%= t :last_name %>:</strong>&nbsp;&nbsp;</div>
+      <span style="text-align:right;"><%= @user.last_name %></span>
+    </div>
+    <div>
+      <div><strong><%= t :email %>:</strong>&nbsp;&nbsp;</div>
+      <span style="text-align:right;"><%= @user.email %></span>
+    </div>
+    <div>
+      <div><strong><%= t :date_created %>:</strong>&nbsp;&nbsp;</div>
+      <span style="text-align:right;"><%= @user.created_at.to_formatted_s(:long) %></span>
+    </div>
+    <div>
+      <div><strong><%= t :status %>:</strong>&nbsp;&nbsp;</div>
+      <span style="text-align:right;"><%= (@user.status == 0) ? (image_tag("adminium/st_offline.png") + " Inactive") : (image_tag("adminium/st_online.png") + " Active") %></span>
+    </div>
+    <br />
+  </div>
+</div>
+<script>
+  $('#back').click(function() {
+    Application.load_content("<%= account_users_path %>");
+  });
+
+  $('#refresh').click(function() {
+    Application.load_content("<%= profile_account_users_path %>");
+  });
+
+  $('#edit').click(function() {
+    Application.load_content("<%= url_for(:controller => "account/users", :action => :edit, :id => @user.id ) %>");
+  });
+</script>

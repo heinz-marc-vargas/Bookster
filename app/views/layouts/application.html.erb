@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="utf8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  	<!-- Apple devices fullscreen -->
+  	<meta name="apple-mobile-web-app-capable" content="yes" />
+  	<!-- Apple devices fullscreen -->
+  	<meta names="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	
+    <title><%= @company.name.titleize rescue '' %></title>
+
+    <%= stylesheet_link_tag "application" %>
+
+    <%= javascript_include_tag "application" %>
+
+    <%= csrf_meta_tag %>
+    <%= favicon_link_tag 'clock_preferences.ico' %>
+    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+
+    <!-- Favicon -->
+  	<link rel="shortcut icon" href="img/favicon.ico" />
+  	<!-- Apple devices Homescreen icon -->
+  	<link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-precomposed.png" />
+
+  </head>
+  <body class="theme-blue" data-theme="theme-blue">
+      <!-- header -->
+      <%= render("layouts/admin_header") %>
+      <!-- main content -->
+      <div class="container-fluid" id="content">
+        <!-- sidebar -->
+        <%= render("layouts/admin_sidebar") %>
+
+    		<div id="main">
+    			<div class="container-fluid main_content">      
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        $(document).ready(function() {
+          //* show all elements & remove preloader
+          setTimeout('$("html").removeClass("js")',1000);
+          
+          <% unless params[:path].nil? %>
+            if ("<%= params[:path] %>" == "staffs") {
+              var id = "<%= params[:id] %>";
+              Application.load_content(Routes.staff_path(id));
+              $(".side-staff").trigger('click');
+            }
+            else {
+              Application.load_content("<%= params[:path] %>");
+            }
+          <% end %>
+        });
+      </script>
+
+  </body>
+</html>

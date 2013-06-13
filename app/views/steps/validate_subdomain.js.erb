@@ -1,0 +1,6 @@
+console.log("<%= @res.inspect %>");
+<% if !@res %>
+$("div.controls label").remove();
+$(".validSubdomain").after("<label class='error' for='subdomain'>Subdomain already in use.</label>");
+<% end %>
+$(".icon-refresh").addClass("hide");

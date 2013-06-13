@@ -1,0 +1,72 @@
+<div class="control-group formSep <%= :error unless @staff.errors[:tel].blank? %>">
+  <label><%= t(:tel) %></label>
+  <%= f.text_field(:tel) %>
+  <span class="help-block"><%= (@staff.errors :tel) rescue "" %></span>
+</div>
+
+<div class="control-group formSep <%= :error unless @staff.errors[:alias].blank? %>">
+  <label><%= t(:alias) %></label>
+  <%= f.text_field(:alias) %>
+  <span class="help-block"><%= (@staff.errors :alias) rescue "" %></span>
+</div>
+
+<div class="control-group formSep">
+  <label class="control-label"><%= Staff.human_attribute_name("display_email") %></label>
+  <div class="controls">
+    <label class="checkbox inline">
+      <%= f.check_box :display_email %>
+      on/off
+    </label>
+  </div>
+</div>
+
+<div class="control-group formSep">
+  <label class="control-label"><%= Staff.human_attribute_name("display_phone") %></label>
+  <div class="controls">
+    <label class="checkbox inline">
+      <%= f.check_box :display_phone %>
+      on/off
+    </label>
+  </div>
+</div>
+
+<%=t(:branch)%><br/>
+<%= f.select :branch_id, @branches.collect {|c| [ c.name, c.id ] } %>
+
+<div class="control-group formSep <%= :error unless @staff.errors[:description].blank? %>">
+	<label><%= t(:description) %></label>
+	<%= f.text_area(:description, :rows => 5, :cols => 10, :class => :span8) %>
+	<span class="help-block"><%= (@staff.errors :description) rescue "" %></span>
+</div>
+
+<div class="control-group formSep">
+  <label class="control-label"><%= Staff.human_attribute_name("status") %></label>
+  <div class="controls">
+    <label class="checkbox inline">
+      <%= f.check_box :status %>
+      on/off
+    </label>
+  </div>
+</div>
+
+<div class="control-group formSep">
+  <label for="fileinput" class="control-label"><%= Staff.human_attribute_name("photo") %></label>
+  <div class="controls">
+    <div data-fileupload="image" class="fileupload fileupload-<%= f.object.photo.blank? ? :new : :preview %>">
+      <input type="hidden" />
+
+      <% if f.object.photo.blank? %>
+        <div style="width: 80px; height: 80px;" class="fileupload-new thumbnail">
+          <img src="/assets/images/default.png" alt="" />
+        </div>
+      <% else %>
+        <div style="width: 80px; height: 80px; line-height: 80px;" class="fileupload-preview fileupload-exists thumbnail">
+          <%= image_tag("staff/" + @staff.id.to_s + @staff.photo, { :size=>"80x80" }) %>
+        </div>
+      <% end %>
+
+      <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span><input type="file" id="fileinput" name="photo" /></span>
+      <a data-dismiss="fileupload" class="btn fileupload-exists" href="#">Remove</a>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<%= form_for(:user, :as => :user, :url => user_password_path, :html => { :method => :put, :id => "edit_pass_form" }) do |f| %>
+  <%= f.hidden_field :reset_password_token %>
+
+  <div class="top_b">Change your password</div>
+
+  <% if @user.errors.any? %>
+    <div class="alert alert-error alert-login">
+      <%= @user.errors.full_messages %>
+    </div>
+  <% end %>
+
+
+  <div class="cnt_b">
+    <div class="formRow">
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="password" name="user[password]" placeholder="New password" />
+      </div>
+    </div>
+
+    <div class="formRow">
+      <div class="input-prepend">
+        <span class="add-on"><i class="icon-lock"></i></span><input type="password" id="password_confirmation" name="user[password_confirmation]" placeholder="Confirm new password" />
+      </div>
+    </div>
+  </div>
+  <div class="btm_b clearfix">
+    <button class="btn btn-inverse pull-right" type="submit">Change my password</button>
+  </div>
+<% end %>

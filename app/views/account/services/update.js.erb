@@ -1,0 +1,7 @@
+<% if @service.errors.any? %>
+  Application.render_content("<%= escape_javascript(render('/account/services/edit')) %>");
+<% else %>
+  Application.load_content(
+    "<%= account_services_path %>"
+  );
+<% end %>

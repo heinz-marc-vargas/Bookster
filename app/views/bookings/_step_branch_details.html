@@ -1,0 +1,34 @@
+<div class="span6">
+  <%= link_to raw("Show all services <i class=\"icon-double-angle-right\"></i>"), root_path(:step => 2, :bid => @branch.id), :class => "btn btn-primary pull-right", :style => "padding:10px; margin: 10px;"%>
+
+  <h3> <%= @branch.name.titleize%> </h3>
+  <h5> About </h5>
+  <p><%= @branch.company.description %></p>
+
+  <% unless @branch.company.contact_number.blank? %>
+    Tel. No.: <%= @branch.company.contact_number %>
+    <br/>
+  <% end %>
+  
+  <% unless @branch.company.owner.email.blank? %>
+    Email: <%= @branch.company.owner.email rescue '' %>
+    <br/>
+  <% end %>
+  
+    <br/>
+  
+  Opening Hours:
+  <BR/>
+  <% @branch.operating_days.each do |od| %>
+    <%= Date::DAYNAMES[od.day_of_week] %>
+    <%= od.operating_hour.am_start_time/3600 %>:<%= (od.operating_hour.am_start_time % 3600) / 3600 %>
+    <%= od.operating_hour.am_end_time/3600 %>:<%= (od.operating_hour.am_end_time % 3600) / 3600 %>
+    <br/>
+  <% end %>
+
+
+  <% if @branch.services.length > 7 %>
+  <hr>
+  <%= link_to raw("Show all services <i class=\"icon-double-angle-right\"></i>"), root_path(:step => 2, :bid => @branch.id), :class => "btn btn-primary pull-right", :style => "padding:10px; margin: 10px;"%>
+  <% end %>
+</div>

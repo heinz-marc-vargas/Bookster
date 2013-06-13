@@ -1,0 +1,40 @@
+<tr id="customer-row2-<%= @customer.id%>">
+	<td colspan="3">
+	 
+	 <div style="padding-bottom: 20px;">
+		 <h4>Notes</h4>
+		 <div>
+		 	<%= form_for :notes, :url => notes_account_customer_path(@customer), :html => { :remote => true } do |f|%>
+		 	<%= text_area_tag :notes, nil, :rows => 1 %>
+		 	<%= submit_tag "Add Note", :class => "btn" %>
+		 	<% end %>		 	
+		 </div>
+
+		 <ul class="unstyled" id="notes-list-<%= @customer.id %>">
+		 <% @customer.notes.each do |note| %>
+		   <li style="padding-bottom: 10px;">
+		   	 <%= note.contents %> <br/>
+		   	 <span style="color: #999999; font-size: 10px;"><%= note.created_at.strftime("%B %d, %Y") %></span>
+		   </li>
+		 <% end %>
+		 </ul>
+	 </div>
+	 
+	 <div>
+		 <h4>Appointments</h4>
+		 <%= "No appointments" if @customer.events.empty? %>
+		 <ul class="unstyled">
+		 <% @customer.events.each do |event| %>
+		   <li>
+		   	<div>
+		   		<span style="padding-right:15px;"><%= event.starts_at.strftime("%B %d, %Y %H:%I%P") %></span>
+		   		<span style="padding-right:15px;"><%= event.title %></span>
+		   		<span style="padding-right:15px;"><%= event.staff.full_name %></span>
+		   	</div>
+		   </li>
+		 <% end %>
+		 </ul>
+	 </div>
+	 
+	</td>
+</tr>

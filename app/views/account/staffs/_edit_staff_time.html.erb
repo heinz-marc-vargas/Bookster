@@ -1,0 +1,87 @@
+<h4>Operating Hours</h4>
+
+<% 0.upto(6) do |i| %>
+  <div class="control-group formSep">
+		<div>
+			<label class="checkbox inline">
+				<%= check_box_tag("openday_" + i.to_s, "1", @staff.operating_days.find_by_day_of_week(i).nil? ? false : true, { :class => "day_chk" }) %>
+				<%= Date::DAYNAMES[i] %>
+			</label>
+
+			<div id="day_<%= i %>" style="<%= @staff.operating_days.find_by_day_of_week(i).nil? ? 'display:none;' : '' %>">
+				<div style="display:none;">
+					<%= hidden_field_tag("start_time_am_" + i.to_s, (@staff.operating_days.find_by_day_of_week(i).operating_hour.am_start_time rescue "28800")) %>
+					<%= hidden_field_tag("end_time_am_" + i.to_s, (@staff.operating_days.find_by_day_of_week(i).operating_hour.am_end_time rescue "43200")) %>
+					<%= hidden_field_tag("start_time_pm_" + i.to_s, (@staff.operating_days.find_by_day_of_week(i).operating_hour.pm_start_time rescue "46800")) %>
+					<%= hidden_field_tag("end_time_pm_" + i.to_s, (@staff.operating_days.find_by_day_of_week(i).operating_hour.pm_end_time rescue "82800")) %>
+				</div>
+				<table width="100%" border="0px" style="vertical-align:middle;">
+					<tr>
+						<td style="border-bottom:0px;padding:0px;margin-bottom:0px;vertical-align:top;" nowrap width="100px">Morning: <input type="text" id="time_am_<%= i %>" value="<%= @staff.operating_days.find_by_day_of_week(i).nil? ? '8:00AM - 12:00AM' : @staff.operating_days.find_by_day_of_week(i).operating_time_am %>" style="border:0;" /></td>
+						<td style="border-bottom:0px;padding:0px;margin-bottom:0px vertical-align:top;" nowrap><div class="am_slider" id="am_slider_<%= i %>"></div></td>
+					</tr>
+					<tr>
+						<td style="border-bottom:0px;padding:0px;margin-bottom:0px;vertical-align:top;" nowrap width="100px">Afternoon: <input type="text" id="time_pm_<%= i %>" value="<%= @staff.operating_days.find_by_day_of_week(i).nil? ? '13:00PM - 23:00PM' : @staff.operating_days.find_by_day_of_week(i).operating_time_pm %>" style="border:0;" /></td>
+						<td style="border-bottom:0px;padding:0px;margin-bottom:0px;vertical-align:top;" nowrap><div class="pm_slider" id="pm_slider_<%= i %>"></div></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+	$('.day_chk').click(function() {
+		var $day_id = $(this).attr("id").split('_')[1];
+	  if ($(this).attr('checked')) {
+		  $("#day_" + $day_id).slideDown();
+		}
+		else {
+		  $("#day_" + $day_id).slideUp();
+		}
+	});
+
+	$(document).ready(function(){
+	<% 0.upto(6) do |i| %>
+		$("#am_slider_<%= i %>").slider({
+			range: true,
+			min: 28800,
+			max: 46800,
+			step: 1800,
+			values: [<%= @staff.operating_days.find_by_day_of_week(i).operating_hour.am_start_time rescue "28800" %>,
+			         <%= @staff.operating_days.find_by_day_of_week(i).operating_hour.am_end_time rescue "43200" %>],
+			slide: function( event, ui ) {
+				start_h = Math.floor(ui.values[0] / 3600);
+				start_m = (ui.values[0] % 3600 / 60);
+				if (start_m == 0) { start_m += "0"; }
+				end_h = Math.floor(ui.values[1] / 3600);
+				end_m = (ui.values[1] % 3600 / 60);
+				if (end_m == 0) { end_m += "0"; }
+				$("#time_am_" + $(this).attr("id").split('_')[2]).val(start_h + ":" + start_m + "AM - " + end_h + ":" + end_m + "AM");
+				$("#start_time_am_" + $(this).attr("id").split('_')[2]).val(ui.values[0].toString());
+				$("#end_time_am_" + $(this).attr("id").split('_')[2]).val(ui.values[1].toString());
+			}
+		});
+
+	  $("#pm_slider_<%= i %>").slider({
+			range: true,
+			min: 46800,
+			max: 82800,
+			step: 1800,
+			values: [<%= @staff.operating_days.find_by_day_of_week(i).operating_hour.pm_start_time rescue "46800" %>,
+			         <%= @staff.operating_days.find_by_day_of_week(i).operating_hour.pm_end_time rescue "82800" %>],
+			slide: function( event, ui ) {
+				start_h = Math.floor(ui.values[0] / 3600);
+				start_m = (ui.values[0] % 3600 / 60);
+				if (start_m == 0) { start_m += "0"; }
+				end_h = Math.floor(ui.values[1] / 3600);
+				end_m = (ui.values[1] % 3600 / 60);
+				if (end_m == 0) { end_m += "0"; }
+				$("#time_pm_" + $(this).attr("id").split('_')[2]).val(start_h + ":" + start_m + "PM - " + end_h + ":" + end_m + "PM");
+				$("#start_time_pm_" + $(this).attr("id").split('_')[2]).val(ui.values[0].toString());
+				$("#end_time_pm_" + $(this).attr("id").split('_')[2]).val(ui.values[1].toString());
+			}
+		});
+	<% end %>
+	});
+</script>

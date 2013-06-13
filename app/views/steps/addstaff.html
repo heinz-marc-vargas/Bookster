@@ -1,0 +1,95 @@
+<h3 class="heading ">Add Staff </h3>
+
+<div class="alert alert-error hide"></div>
+
+
+
+<%= form_for @user, :url => addstaff_steps_path, :html => { :class => "stepy-wizzard form-horizontal", :id => "business", :remote => true } do |f|%>
+	<%= hidden_field_tag "staff[branch_id]", @company.branches.first.id %>
+	
+	
+	<fieldset title="" class="step" id="validate_wizard-step-0" style="width: 575px;">
+		<div class="control-group" >
+			<label for="v_email" class="control-label">Email *</label>
+			<div class="controls">
+				<%= f.text_field :email, :required => true, :class => "validTelno" %>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="v_email" class="control-label">Password *</label>
+			<div class="controls">
+				<%= f.password_field :password, :required => true%>
+			</div>
+		</div>
+		<div class="formSep control-group">
+			<label for="v_email" class="control-label">Confirm Password *</label>
+			<div class="controls">
+				<%= f.password_field :confirm_password, :required => true  %>
+			</div>
+		</div>
+		
+		<div class="control-group">
+			<label for="v_username" class="control-label">Firstname *</label>
+			<div class="controls">
+				<%= f.text_field :first_name, :required => true %>
+			</div>
+		</div>
+		<div class="control-group">
+			<label for="v_password" class="control-label">Lastname *</label>
+			<div class="controls">
+				<%= f.text_field :last_name, :required => true %>
+			</div>
+		</div>
+		<div class=" control-group">
+			<label for="v_email" class="control-label">Alias/Nickname:</label>
+			<div class="controls">
+				<%= text_field_tag "staff[alias]", nil %>
+			</div>
+		</div>
+		<div class=" control-group">
+			<label for="v_email" class="control-label">Phone number:</label>
+			<div class="controls">
+				<%= text_field_tag "staff[tel]", nil  %>
+			</div>
+		</div>		
+		<div class=" control-group">
+			<label for="v_email" class="control-label">Description:</label>
+			<div class="controls">
+				<%= text_area_tag "staff[description]", nil  %>
+			</div>
+		</div>		
+		<div class=" control-group">
+			<label for="v_email" class="control-label">Gender *</label>
+			<div class="controls">
+				<%= f.radio_button :gender, "male", :required => true %> Male
+				<%= f.radio_button :gender, "female", :required => true %> Female
+			</div>
+		</div>
+		<div class=" control-group">
+			<label for="v_email" class="control-label">Other Options:</label>
+			<div class="controls">
+				 <%= check_box_tag "staff[display_email]", 1, false %> Display email
+				 <br/>
+				 <%= check_box_tag "staff[display_phone]", 1, false %> Display phone number
+			</div>
+		</div>
+
+		<div class=" control-group">
+			<label for="v_email" class="control-label">Status *</label>
+			<div class="controls">
+				 <%= check_box_tag "staff[status]", 1, false, :required => true %> Active  
+			</div>
+		</div>		
+		<button type="submit" name="button" class="btn btn-primary button-next">Add Staff</button>
+		
+	</fieldset>
+<% end %>
+
+<script>
+$(function () {
+
+	$("#busines").validate();
+	
+
+});
+</script>

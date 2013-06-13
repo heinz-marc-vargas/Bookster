@@ -1,0 +1,66 @@
+<h4 class="heading">Billing</h4>
+
+<%= f.fields_for :payment_verification do |payment_form| %>
+
+  <div class="formRow">
+    <%= payment_form.label :account_holder %>
+    <%= payment_form.text_field :account_holder, :class => "payment_field" %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :card_name %>
+    <%= payment_form.select :account_brand, Inpendium::PaymentVerification.cards_drop_down %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :card_number %>
+    <%= payment_form.text_field :account_number, :class => "payment_field" %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :expiration %>
+    <%= payment_form.select(:account_month, Inpendium::PaymentVerification.expiration_month) %>
+    <%= payment_form.select(:account_year, Inpendium::PaymentVerification.expiration_years) %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label "Credit Card Code (CVV)" %>
+    <%= payment_form.text_field :account_verification, :class => "payment_field" %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :account_country %>
+    <%= payment_form.select :account_country, Inpendium::PaymentVerification.countries_drop_down %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :name_family %>
+    <%= payment_form.text_field :name_family, :class => "payment_field" %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :name_give %>
+    <%= payment_form.text_field :name_give, :class => "payment_field" %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :contact_email %>
+    <%= payment_form.email_field :contact_email, :class => "payment_field" %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :address_country %>
+    <%= payment_form.select :address_country, Inpendium::PaymentVerification.countries_drop_down %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :address_city %>
+    <%= payment_form.text_field :address_city, :class => "payment_field" %>
+  </div>
+
+  <div class="formRow">
+    <%= payment_form.label :address_street %>
+    <%= payment_form.text_field :address_street, :class => "payment_field" %>
+  </div>
+
+<% end %>

@@ -1,0 +1,81 @@
+<h2><%= t :notifications %></h2>
+<%= form_tag notifications_account_companies_path, :id => "notifications", :remote => true do %>
+
+	<div class="errors hide span7"></div>
+	<div style="clear:both"></div><br/>
+
+	<div class="row-fluid formSep ">	
+		<div class="control-group">
+			<label class="control-label span2"></label>
+			<div class="controls">
+				
+					<%= check_box_tag :enable, 1, @branch.notify_enabled %>  Enable Notifications
+				
+			</div>			
+		</div>
+	</div>
+
+	<div class="row-fluid">	
+		<div class="control-group">
+			<label class="control-label span2">Email Address:</label>
+			<div class="controls">
+				<%= text_field_tag :email, @branch.notify_options[:email], :class => "span4 email", :required => true  %>
+			</div>			
+		</div>
+	</div>
+
+	<div class="row-fluid">	
+		<div class="control-group">
+			<label class="control-label span2">How often:</label>
+			<div class="controls span4" style="margin-left: 0px !important;">
+				
+				<label class="radio" style="margin-left: 0px !important;">
+					<%= radio_button_tag :frequency, "everytime", (@branch.notify_options[:frequency] == 'everytime'), :required => true  %> Everytime
+				</label>
+				<label class="radio">
+					<%= radio_button_tag :frequency, "day", (@branch.notify_options[:frequency] == 'day'), :required => true  %> Once a day
+				</label>
+				<label class="radio">
+					<%= radio_button_tag :frequency, "week", (@branch.notify_options[:frequency] == 'week'), :required => true  %> Once a week
+				</label>
+				
+			</div>			
+		</div>
+	</div>
+
+	<div class="formSep">
+		<div class="row-fluid">
+			<div class="span4">
+				<%= submit_tag "Save Changes", :class => "btn btn-gebo" %>
+			</div>
+		</div>
+	</div>
+	
+<% end %>
+
+
+<script>
+  $(function() {
+  	
+  	$("#notifications").validate();
+
+    $("#enable").change(function(){
+    	var val = $(this).attr('checked');
+    	
+    	if (val) {
+    		$("#email").removeAttr('disabled');
+    		$("input[name='frequency']").removeAttr('disabled');
+    	}else{
+    		$("#email").attr('disabled', 'disabled');
+    		$("input[name='frequency']").attr('disabled', 'disabled');
+    	}
+    })
+  });
+  
+  var notify_disabled = "<%= @branch.notify_enabled? ? 'false' : 'true' %>";
+  
+	if (notify_disabled == "true") {
+		$("#email").attr('disabled', 'disabled');
+		$("input[name='frequency']").attr('disabled', 'disabled');
+	}
+</script>

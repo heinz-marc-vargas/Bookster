@@ -1,0 +1,38 @@
+<strong>Search Results</strong> for "<%= @search_text %>":
+<div width="100%" style="padding:5px 0px;">
+  <table width="100%" cellpadding="0" cellspacing="0" class="today_stats">
+  <tr>
+		<td><strong><%= @company_count %></strong><%= t :companies_l %> <%= t :hb_found %></td>
+		<td><strong><%= @branch_count %></strong><%= t :branches_l %> <%= t :hb_found %></td>
+		<td id="users_search" class="search_action"><strong><%= @user_count %></strong>
+			<% if @user_count > 0 %>
+				<a href="#"><%= t :users_l %> <%= t :hb_found %></a>
+      <% else %>
+				<%= t :users_l %>&nbsp;<%= t :hb_found %>
+			<% end %>
+		</td>
+		<td id="staff_search" class="search_action"><strong><%= @staff_count %></strong>
+			<% if @staff_count > 0 %>
+				<a href="#"><%= t :staff_l %> <%= t :hb_found %></a>
+      <% else %>
+				<%= t :staff_l %>&nbsp;<%= t :hb_found %>
+			<% end %>
+		</td>
+		<td id="customers_search" class="search_action"><strong><%= @customer_count %></strong>
+			<% if @customer_count > 0 %>
+				<a href="#"><%= t :customers_l %> <%= t :hb_found %></a>
+      <% else %>
+			  <%= t :customers_l %> <%= t :hb_found %>
+			<% end %>
+		</td>
+	</tr>
+  </table>
+</div>
+<hr />
+<script>
+	$('.search_action').click(function() {
+	  var $p = $(this).attr("id").split('_');
+		var $url = "/" + $p[0] + "/filter?search_text=" + "<%= @search_text %>";
+		Application.load_content($url);
+	});
+</script>

@@ -1,0 +1,42 @@
+<div class="btn-success current_company hide" style="padding-left: 10px; text-align:center"></div>
+
+<div class="subnav">
+
+  <div class="subnav-title">
+		<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span><%= t :menu_companies %></span></a>
+	</div>    
+	<ul class="subnav-menu admin-submenu">
+		<li>
+			<a href="javascript:void(0)" class="side_menu" data-path="/account/companies"><%= t :company_list %></a>
+		</li>
+    
+        
+	</ul>
+</div>
+
+<div class="subnav">
+  <div class="subnav-title">
+		<a href="#" class='toggle-subnav'><i class="icon-angle-down"></i><span><%= t :menu_users %></span></a>
+	</div>  
+	<ul class="subnav-menu">
+		<li>
+			<a href="javascript:void(0)" class="side_menu" data-path="<%= account_users_path %>"><%= t :menu_users %></a>
+		</li>
+	</ul>
+</div>
+
+<script>
+
+<% unless params[:company_id].nil? %>
+<% session[:company_id] = params[:company_id] %>
+$(".admin-submenu li").each(function(index) {
+  if (index != 0 ) {
+    $(this).remove();
+  }
+});
+
+$(".admin-submenu").append("<%= escape_javascript(render("/layouts/admin_submenu")).html_safe %>").hide().fadeIn('slow'); 
+$('#main .main_content').load("/account/branches?id=<%= params[:company_id] %>");
+$(".current_company").text("<%= Company.find(params[:company_id]).name rescue '' %>").show();
+<% end %>
+</script>

@@ -1,0 +1,35 @@
+<div class="panel" style="padding:10px";>
+<%= form_for (@customer, :url => {:controller => 'customers', :action => 'create'}, :remote => true) do |f| %>
+	<h3>Customer Information</h3>
+
+	<table width="80%" cellpadding="1px">
+    <%= render("customers/fields_for_user", :object => @customer) %>
+
+		<tr>
+			<td>Contact Number</td>
+			<td><%= f.text_field :phone_number %></td>
+		</tr>
+
+		<tr>
+			<td>Address:</td>
+			<td><%= f.text_field :address_1 %></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><%= f.text_field :address_2 %></td>
+		</tr>
+		<tr>
+			<td>Zip Code:</td>
+			<td><%= f.text_field :zipcode %></td>
+		</tr>
+		<tr>
+			<td><%= t :language %>:</td>
+			<td><%= f.select("country_id", Country.all.collect {|c| [ c.name, c.id ] }) %>
+			<div style="display:none;"><%= f.hidden_field(:company_id, :value => Branch.find(session[:branch_id]).company.id) %></div></td>
+		</tr>
+	</table>
+
+	<center><%= f.submit :value => "Confirm Customer Information", :class => "button button-green" %></center>
+	</div>
+<% end -%>
+</div>

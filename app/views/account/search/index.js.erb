@@ -1,0 +1,4 @@
+$('#search_results').remove();
+$("#contentwrapper .main_content").prepend("<div id='search_results'></div>")
+$('#search_results').html(<%= render("users/admin_search_summary").to_json.html_safe %>);
+$("#search_results").slideDown("slow");

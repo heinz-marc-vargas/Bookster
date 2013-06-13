@@ -1,0 +1,22 @@
+<div>
+  <h5><%= t :morning %></h5>
+  <ul class="unstyled clearfix">
+  <% @timeslots["am_time"].each do | tam | %>
+    <li style="float:left; background-color: #E5F2FF; padding: 6px 12px 6px 12px; margin:2px;">
+    <%= link_to tam, "#sd", :class => "timeslot", "data-timeslot" => tam, "data-service-name" => @service.name.titleize, "data-staff-name" => @staff.full_name, "data-date" => session[:date].strftime('%B %d, %Y') %>
+  </li>
+  <% end %>
+  </ul>
+
+  <h5><%= t :afternoon %></h5>
+
+
+  <ul class="unstyled clearfix">
+  <% @timeslots["pm_time"].each do | tpm | %>
+  <li style="float:left; background-color: #E5F2FF; padding: 6px 12px 6px 12px; margin:2px;">
+  <%= link_to tpm, "#sd", :class => "timeslot", "data-timeslot" => tpm, "data-service-name" => @service.name.titleize, "data-staff-name" => @staff.full_name, "data-date" => session[:date].strftime('%B %d, %Y') %>
+  </li>
+  <% end %>
+  </ul>
+
+</div>

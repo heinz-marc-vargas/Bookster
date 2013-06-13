@@ -1,0 +1,5 @@
+<% if @branch.errors.any? %>
+  Application.render_content(<%= render('account/branches/new').to_json.html_safe %>);
+<% else %>
+  Application.load_content(Routes.account_branches_path());
+<% end %>

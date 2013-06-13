@@ -1,0 +1,39 @@
+<div class="subnav">
+	<ul class="subnav-menu">
+		<li>
+			<a href="javascript:void(0)" class="side_menu" data-path="/account/dashboard"><%= t :menu_dashboard %></a>
+		</li>
+	</ul>
+  
+  <% if can?(:read, Event) %> 
+	<ul class="subnav-menu">
+		<li>
+			<a href="javascript:void(0)" class="side_menu" data-path="/account/events/todays"><%= t :menu_appointments %></a>
+		</li>
+	</ul>
+
+	<ul class="subnav-menu">
+		<li>
+			<a href="javascript:void(0)" class="side_menu" data-path="/account/calendar"><%= t :menu_calendar %></a>
+		</li>
+	</ul>
+  <% end %>
+  
+  <% if can?(:read, Customer) %>
+	<ul class="subnav-menu">
+		<li>
+			<a href="javascript:void(0)" class="side_menu" data-path="<%= account_customers_path %>"><%= t :menu_customers %></a>
+		</li>
+	</ul>
+  <% end %>
+
+  <% if can?(:read, Review) %>
+	<ul class="subnav-menu">
+		<li>
+			<a href="javascript:void(0)" class="side_menu" data-path="<%= account_reviews_path %>"><%= t :menu_reviews %></a>
+		</li>
+	</ul>
+  <% end %>
+  
+</div>
+

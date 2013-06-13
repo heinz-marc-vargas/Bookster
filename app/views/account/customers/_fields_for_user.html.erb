@@ -1,0 +1,31 @@
+<%= fields_for(object.user) do |user| %>
+	<tr>
+		<td>
+			<label><%= t :first_name %>:</label>
+	  </td>
+	  <td>
+		  <%= user.text_field(:first_name, {:class => "text"}) %>
+		  <span class="note error"><%= object.user.errors[:first_name] rescue "" %></span>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+			<label><%= t :last_name %>:</label>
+	  </td>
+	  <td>
+		  <%= user.text_field(:last_name, {:class => "text"}) %>
+		  <span class="note error"><%= object.user.errors[:last_name] rescue "" %></span>
+		</td>
+	</tr>
+
+	<tr>
+		<td>
+		  <label><%= t :email %>:</label>
+    </td>
+    <td>
+		  <%= user.text_field(:email, {:class => "text"}) %>
+		  <span class="note error"><%= object.user.errors[:email].join(" & ") rescue "" %></span>
+		</td>
+	</tr>
+<% end %>

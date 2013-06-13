@@ -1,0 +1,24 @@
+<%= form_for(:user, :as => :user, :url => user_confirmation_path, :html => { :method => :post, :id => "confirm_form", :style => (display ? "" : "display:none") }) do |f| %>
+
+  <div class="top_b">Resend confirmation instructions</div>
+
+  <% if @user.errors.any? %>
+    <div class="alert alert-error alert-login">
+      <% @user.errors.full_messages.each do |msg| %>
+        <div><%= msg %></div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="cnt_b">
+  	<div class="formRow">
+      <div class="input-prepend">
+        <span class="add-on">@</span><input type="email" id="username" name="user[email]" placeholder="Email" />
+      </div>
+    </div>
+  </div>
+
+  <div class="btm_b tac">
+    <button class="btn btn-inverse" type="submit">Resend confirmation instructions</button>
+  </div>
+<% end %>

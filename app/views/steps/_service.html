@@ -1,0 +1,23 @@
+<li style="border: 1px solid #ccc; width: 250px; height: 50px; float: left; margin: 10px; padding: 10px;">	
+	<%= link_to service.name.titleize, editservice_steps_path(:id => service.id), :class => "sl_name", :style => "font-size: 14px;", 'data-target' => "#editserviceModal", :role => "button", "data-toggle" => "modal" %>
+</li>
+
+<script>
+$(function () {
+  $('.upload-avatar-<%= service.id %>').fileupload({
+      dataType: 'script',
+      done: function (e, data) {
+      	console.log(data);
+      	console.log(e);
+      	console.log("---------");
+      	
+          $.each(data.result.files, function (index, file) {
+          		console.log(file);
+          		console.log(index);
+              //$('<p/>').text(file.name).appendTo(document.body);
+          });
+      }
+  });
+
+});
+</script>

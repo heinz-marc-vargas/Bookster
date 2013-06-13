@@ -1,0 +1,45 @@
+<div class="row-fluid">
+  <div class="span12">
+
+  	<h2 class="heading">Service Details <small><%= format("  (%s)", @service.name ) %></small></h2>
+
+		<%= simple_form_for([:account, @service], :remote => true, :method => :put) do |f| %>
+		  <%= f.hidden_field(:id, :value => @service.id.to_s) %>
+
+				<%= render("/account/services/forms", :f => f) %>
+
+				<h3 class="heading"><%= t :staff %></h3>
+        
+				<% current_user.companies.first.staffs.each do |s| %>
+					<div class="control-group formSep">
+					  <div class="controls">
+					    <label class="checkbox inline">
+					      <%= check_box_tag "staff[]", s.id, ((s.services.include? @service) ? true : false) %>
+					      <%= s.full_name %>
+					    </label>
+					  </div>
+					</div>
+			  <% end %>
+
+
+				<div class="control-group">
+					<div class="controls">
+						<%= f.submit("Save Sevice Details", {:class => "btn btn-primary"}) %>
+					  <%= link_to_function("Cancel", "Application.load_content('#{account_services_path}');", :class => "btn") %>
+					</div>
+				</div>
+		<% end %>
+
+	</div>
+</div>
+
+<script>
+
+	$('#back').click(function() {
+		Application.load_content("<%= account_services_path %>");
+	});
+	$('#edit').click(function() {
+		Application.load_content("<%= edit_account_service_path(@service.id) %>");
+	});
+
+</script>

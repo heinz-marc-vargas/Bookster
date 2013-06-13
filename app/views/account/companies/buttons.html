@@ -1,0 +1,43 @@
+<% if @company.progress_status == 'complete' %>
+	<h3><%= t ".booknow_button_desc"%></h3><br/><br/>
+	
+	<%= image_tag(@branches.first.branch_logo.url(:thumb)) %><br/><br/>
+	
+	<p><strong>Copy and paste this code to your website:</strong></p>
+	<%= text_area_tag :book_tags, "<a href=\"#{bookings_url(:branch_id => 1, :service_id => 2)}\">#{image_tag((root_url.to_s + @branches.first.branch_logo.url(:thumb).to_s), :size => '200x80')}</a>", { :style => "width: 500px; height: 75px;"} %>
+	<br/><br/>
+
+	<% if @branches.length > 1 %>
+		<p><strong>Create a Booknow button per Branch and Service:</strong></p>
+	<% else %>
+		<p><strong>Create a Booknow button per Service:</strong></p>
+	<% end %>
+	 
+ 	<% if @branches.length > 1 %>
+  	<%= select_tag "branch_id", options_for_select(@branches.collect{|c| [c.name.humanize, c.id]}) %>
+  	<div style="clear:both"></div>
+  <% end %>
+	  
+	<%= select_tag "service_id", options_for_select(@services.collect{|c| [c.name.humanize, c.id]}), :class => "pull-left" %>
+	<%= button_tag "Generate Code", :class => "generate_book_code btn", :style => "margin-left: 10px;" %>
+	<div style="clear:both"></div>
+	<div class="book_tags_byservice"></div>
+	
+<% else %>
+	You have not completely setup your business details
+<% end %>
+
+<script>
+	$(function(){
+		$(".generate_book_code").die();
+		
+		$(".generate_book_code").live("click", function(){
+			$(".book_tags_byservice").fadeOut('fast');
+			
+			branch_id = $("#branch_id").val();
+			service_id = $("#service_id").val();
+			
+			$.get("/account/companies/generate_code", {service_id: service_id, branch_id: branch_id });
+		})
+	})
+</script>

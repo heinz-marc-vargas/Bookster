@@ -1,0 +1,13 @@
+<% unless @service.errors.empty?%>
+	html = "<ul class='unstyled'>";
+	<% @service.errors.keys.each do |k|%>
+		html += "<li><%= k.to_s.capitalize %> <%= @service.errors[k].first %> </li>";
+	<% end %>
+	html += "</ul>";
+	
+	$(".alert-error").html(html).show();
+<% else%>
+  $(".service-list").prepend("<%= escape_javascript(render(:partial => "/steps/service", :locals => { :service => @service } )) %>");
+  $("#serviceModal").modal('hide');
+<% end %>
+

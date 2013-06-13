@@ -1,0 +1,85 @@
+<div id="sidebar">
+  <ul id="nav"><% if can?(:manage, User) %><li id="menu_users" class="side_menu"><a href="#"><span>
+        <% if session[:active_main_tab] == "users" %><strong><% end %>
+        <%= image_tag("adminium/nav/users.png") %> <%= t :menu_users %>
+        <% if session[:active_main_tab] == "users" %></strong><% end %>
+      </span></a>
+    </li><% end %><% if can?(:read, Company) %><li id="menu_companies" class="side_menu"><a href="#"><span>
+        <% if session[:active_main_tab] == "companies" %><strong><% end %>
+        <%= image_tag("adminium/nav/support.png") %> <%= t :menu_companies %>
+        <% if session[:active_main_tab] == "companies" %></strong><% end %>
+      </span></a>
+    </li><% end %><% if can?(:read, Branch) %><li id="menu_branches" class="side_menu"><a href="#"><span>
+        <% if session[:active_main_tab] == "branches" %><strong><% end %>
+        <%= image_tag("adminium/nav/support_alt.png") %> <%= t :menu_branches %>
+        <% if session[:active_main_tab] == "branches" %></strong><% end %>
+      </span></a>
+    </li><% end %><% if can?(:read, Event) %><li id="menu_events"><a href="#"><span>
+        <% if session[:active_main_tab] == "events" %><strong><% end %>
+        <%= image_tag("adminium/nav/clipboard.png") %> <%= t :menu_appointments %>
+        <% if session[:active_main_tab] == "events" %></strong><% end %>
+      </span></a>
+    </li><% end %><li id="menu_calendar"><a href="#"><span class="<%= (session[:active_main_tab] == "calendar") ? "selected": "side_menu" %>">
+        <%= image_tag("adminium/nav/calendar.png") %> <%= t :menu_calendar %>
+      </span></a>
+    </li><% if can?(:read, Staff) %><li id="menu_staff" class="side_menu"><a href="#"><span>
+        <% if session[:active_main_tab] == "staff" %><strong><% end %>
+        <%= image_tag("icons/user.png") %> <%= t :menu_staff %>
+        <% if session[:active_main_tab] == "staff" %></strong><% end %>
+      </span></a>
+    </li><% end %><% if can?(:read, Service) %><li id="menu_services" class="side_menu"><a href="#"><span>
+        <% if session[:active_main_tab] == "services" %><strong><% end %>
+        <%= image_tag("icons/bell.png") %> <%= t :menu_services %>
+        <% if session[:active_main_tab] == "services" %></strong><% end %>
+      </span></a>
+    </li><% end %><% if can?(:read, Customer) %><li id="menu_customers" class="side_menu"><a href="#"><span>
+        <% if session[:active_main_tab] == "customers" %><strong><% end %>
+        <%= image_tag("icons/emoticon_smile.png") %> <%= t :menu_customers %>
+        <% if session[:active_main_tab] == "customers" %></strong><% end %>
+      </span></a>
+    </li><% end %></ul>
+  <!--<div class="status_box">
+    <ul>
+      <li><a title="Online" class="online" href="#">Web server 1</a></li>
+      <li><a title="Online" class="online" href="#">Web server 2</a></li>
+      <li><a title="Warning" class="warning" href="#">DB server</a></li>
+      <li><a title="Offline" class="offline" href="#">Mail server</a></li>
+    </ul>
+  </div>-->
+</div>
+<script type="text/javascript">
+	function tabs(x) {
+		var lis=document.getElementById("nav").childNodes; //gets all the LI from the UL
+		
+		for(i=0;i<lis.length;i++) {
+			lis[i].className="side_menu"; //removes the classname from all the LI
+			lis[i].firstChild.firstChild.className="";
+		}
+		
+		x.className="selected"; //the clicked tab gets the classname selected
+		var y = x.firstChild;
+		y.firstChild.className = "selected";
+	}
+  $('.side_menu').click(function() {
+	  tabs(this);
+    var $p = $(this).attr("id").split('_');
+    $("#search_results").slideUp("fast");
+		$('#main_contents').hide("slow");
+    $('#main_contents').load("/" + $p[1] + "/list");
+    $('#main_contents').show("slow");
+  });
+  $('#menu_events').click(function() {
+	  tabs(this);
+    $("#search_results").slideUp("fast");
+		$('#main_contents').hide("slow");
+    $('#main_contents').load("<%= url_for(:controller => :events, :action => :list ) %>");
+    $('#main_contents').show("slow");
+  });
+  $('#menu_calendar').click(function() {
+	  tabs(this);
+    $("#search_results").slideUp("fast");
+		$('#main_contents').hide("fast");
+    $('#main_contents').load("<%= url_for(:controller => :calendar ) %>");
+    $('#main_contents').show("slow");
+  });
+</script>

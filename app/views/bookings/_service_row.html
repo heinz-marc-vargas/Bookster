@@ -1,0 +1,7 @@
+<div>
+  <h4><%= link_to service.name.titleize, root_path(:step => 3, :bid => service.branch_id, :sid => service.id) %> ($<%= service.charge %>)
+  </h4>
+    <span> <%= service.duration %> min</span>
+    <span> <%= service.description %></span>
+</div>
+<hr>

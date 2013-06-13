@@ -1,0 +1,54 @@
+<div class="row-fluid">
+   <div class="span12">
+
+   	<div id="services_list"
+
+			<% if params[:success] %>
+			  <div class="alert alert-success">
+			  	<a class="close" data-dismiss="alert">x</a>
+			  	<p><%= params[:success] %></p>
+			  </div>
+			<% end %>
+
+			<%= form_tag(:url => mass_update_account_services_path, :method => :put, :remote => true) do |f| %>
+			  <div class="clearfix">
+			    <%= render :partial => "table_options" %>
+			  </div>
+
+				<table id="dt_services" class="table table-striped table-bordered dTableR">
+					<thead>
+					<tr>
+						<th><%= check_box_tag("mass", 0, false) %></th>
+						<th><%= t :name %></th>
+						<th><%= t :description %></th>
+						<th><%= t :duration %></th>
+						<th><%= t :charge %></th>
+						<th><%= t :actions %></th>
+					</tr>
+					</thead>
+					<tbody>
+					  <tr>
+		          <td class="dataTables_empty" colspan="6"><%= t :loading_data %></td>
+		        </tr>
+					</tbody>
+				</table>
+
+			<% end %>
+
+	  </div>
+
+  </div>
+</div>
+
+<script>
+  GeboDatatbles.dt_services("<%= list_datable_account_services_path %>");
+
+	$("#mass").click(function () {
+		if ($('#mass:checked').val() !== undefined) {
+			$(".mass_check").prop("checked", true); }
+		else {
+			$(".mass_check").prop("checked", false); }
+	});
+
+
+</script>

@@ -1,0 +1,25 @@
+<div id="service_selector">
+  <h2><%= t :select_service %></h2>
+  <%#= @branch.company_id.inspect %>
+  <% Company.find(@branch.company_id).services.each do | service | %>
+    <ul>
+      <li><b><a href='#' id="service_<%= service.id %>" class="button button-green"><%= service.name %></a></b></li>
+      <dl><b><%= t :charge %>:&nbsp;</b>&#165;<%= service.charge %></dl>
+      <dl><b><%= t :description %>:&nbsp;</b><%= service.description %></dl>
+      <dl><b><%= t :duration %>:&nbsp;</b><%= service.duration %>&nbsp;minutes</dl>
+      <input id="service_name_<%= service.id %>" type="hidden" value="<%= service.name %>"/>
+    </ul>
+    <br />
+    <script>
+      $("#service_<%= service.id %>").click(function() {
+        var $service_id = $(this).attr("id").split('_')[1];
+        $("#booking_footer").hide();
+        $("#service_selector").hide("slow");
+        $("#staff_selector").slideDown("slow");
+        $("#service_summary").text($("#service_name_" + $service_id).val());
+        $("#service_id_hidden").val($service_id);
+        $("#staff_selector_panel").load("bookings/load_staff_selector?service_id=" +  $service_id.toString());
+      });
+    </script>
+  <% end %>
+</div>

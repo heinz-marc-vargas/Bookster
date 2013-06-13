@@ -1,0 +1,88 @@
+<div class="textbox">
+	<h2>
+		<%= t :customer_details %>
+	  <div class="tableactions" style="float:right;"><input id="back" type="button" class="btn btn-primary" value="<%= t :back_to_list %>" /></div>
+	  <div class="tableactions" style="float:right;"><input id="refresh" type="button" class="btn btn-primary" value="<%= t :refresh %>" />&nbsp;&nbsp;</div>
+	</h2>
+	<div class="textbox_content">
+    <div style="float:right;margin:10px;">	
+			<%= image_tag((@customer.company.logo.nil? ? "logos/default_company_logo.jpg" : @customer.company.logo), :size=>"150x50") %>
+    </div>
+		<div>
+		  <div style="float:left;text-align:right;width:120px"><strong><%= t :first_name %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @customer.user.first_name %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :last_name %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @customer.user.last_name %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :email %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @customer.user.email %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :phone %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @customer.phone_number %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :address %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @customer.address_1 %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px">&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @customer.address_2 %></span>
+		</div>
+		<div>
+			<div style="float:left;text-align:right;width:120px"><strong><%= t :zipcode %>:</strong>&nbsp;&nbsp;</div>
+			<span style="text-align:right;"><%= @customer.zipcode %></span>
+		</div>
+    <br />
+    <hr />
+		<% if @customer.events.count == 0 %>
+		<div class="message warning"><p><%= t :customer_no_appointments %></p></div>
+		<% else %>	
+    <h3><%= t :appointments %>:</h3>
+		<div>
+			<table class="table table-striped table-bordered dTableR">
+				<thead>
+				<tr>
+					<th><%= t :branch %></th>
+					<th><%= t :service %></th>
+					<th><%= t :staff %></th>
+					<th><%= t :customer %></th>
+					<th><%= t :date %></th>
+					<th><%= t :time %></th>
+					<th><%= t :duration %></th>
+				</tr>
+				</thead>
+				<tbody>
+				<% @customer.events.each do |event| %>
+				<tr>
+					<td><%= event.staff.branch.name rescue "N/A" %></td>
+					<td><%= event.service.name rescue "N/A" %></td>
+					<td><%= event.staff.user.full_name rescue "N/A" %></td>
+					<td><%= event.customer.full_name rescue "N/A" %></td>
+					<td><%= event.appointment_date %></td>
+					<td><%= event.appointment_span %></td>
+					<td><%= event.duration %></td>
+				</tr>
+				<% end %>
+				</tbody>
+			</table>
+		</div>
+		<% end %>	
+	</div>	
+</div>
+<script>
+	$('#back').click(function() {
+		Application.load_content("<%= url_for(:controller => :customers, :action => :list ) %>");
+	});
+
+	$('#refresh').click(function() {
+		Application.load_content("<%= url_for(:controller => :customers, :action => :view ) %>");
+	});
+
+	$('#edit').click(function() {
+		Application.load_content("<%= url_for(:controller => :customers, :action => :edit, :id => @customer.id ) %>");
+	});
+</script>

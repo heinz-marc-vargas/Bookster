@@ -1,0 +1,31 @@
+<div class="login-body">
+	<h2><%= t('forget_password')%></h2>
+    <%= form_for(resource_name, :as => "user", :url => user_password_path, :html => { :method => :post, :id => "pass_form" }) do |f| %>
+    
+    <% if @user.errors.any? %>
+      <div class="alert alert-error alert-login">
+        <% @user.errors.full_messages.each do |msg| %>
+          <div><%= msg %></div>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <% flash.each do |name, msg| %>
+      <div class="alert alert-info alert-login">
+        <%= content_tag :div, msg, :id => "flash_#{name}" %>
+      </div> 
+    <% end %>
+    
+    
+		<div class="email">
+      <input type="text" name="user[email]" placeholder="Your email address" class="input-block-level" required="required" />
+		</div>
+		<div class="submit">
+			<input type="submit" value="<%= t('request_new_password') %>" class='btn btn-primary'>
+		</div>
+    <% end %>
+    
+	<div class="forget">
+		<a href="<%= new_user_session_path %>"><span><%= t('login')%><span></a>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<% if @success %>
+  <div class="message success"><p><%= @success %></p></div>
+<% end %>
+
+<%= form_tag({:action => :mass_update}, { :class => "button_to" }) do |f| %>
+<div class="textbox">
+  <%= render :partial => "table_options" %>
+	<div class="textbox_content">
+		<table width="100%" cellspacing="0" cellpadding="0" summary="user list" class="table table-striped sortable">
+			<thead>
+			<tr>
+				<th class="header" style="cursor:pointer;"><%= check_box_tag("mass", 0, false) %></th>
+				<th class="header" style="cursor: pointer;"><%= (t :user_name) %></th>
+				<th class="header" style="cursor: pointer;"><%= (t :first_name) %></th>
+				<th class="header" style="cursor: pointer;"><%= (t :last_name) %></th>
+				<th class="header" style="cursor: pointer;"><%= (t :email) %></th>
+				<th class="header" style="cursor: pointer;"><%= (t :actions) %></th>
+			</tr>
+			</thead>
+			<tbody>
+			<% @users.each do |user| %>
+			<tr class="<%= cycle('even', 'odd') %>">
+				<td><%= check_box_tag("check_" + user.id.to_s, user.id, false, :class => "mass_check") %></td>
+				<td><%= user.username %></td>
+				<td><%= user.first_name %></td>
+				<td><%= user.last_name %></td>
+				<td><%= user.email %></td>
+				<td>
+					<%= link_to(image_tag("icons/bbook.png"), "#", :class => "list_action", :id => ("view_" + user.id.to_s), :title => (t :user_view)) %>
+					<%= link_to(image_tag("icons/user_edit.png"), "#", :class => "list_action", :id => ("edit_" + user.id.to_s), :title => (t :user_edit)) %>
+					<%= link_to(image_tag("icons/ddelete.png"), "#", :class => "list_action", :id => ("delete_" + user.id.to_s)) %>
+				</td>
+			</tr>
+			<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
+<% end %>
+
+<script>
+	$("#mass").click(function () {
+		if ($('#mass:checked').val() !== undefined) {
+			$(".mass_check").prop("checked", true); }
+		else {
+			$(".mass_check").prop("checked", false); }
+	});
+	$('.list_action').click(function() {
+	  var $p = $(this).attr("id").split('_');
+		var $url = "/" + $p[0] + "/" + $p[1];
+	  if ($p[0] == "delete") {
+		  if (!confirm("<%= t :user_delete_confirm %>")) {
+			  return; }
+	  }
+
+	  Application.load_content("<%= url_for(:controller => :users) %>" + $url);
+	});
+</script>

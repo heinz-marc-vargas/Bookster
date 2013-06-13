@@ -1,0 +1,25 @@
+<h4>
+	<%= t :appointments %>
+
+	<div style="float:right;">
+    <%= select_tag("service_filter",
+          options_from_collection_for_select(current_user.services_list, :id, :name, params[:service_filter]),
+          :prompt => t(".select.service")) %>&nbsp;
+
+    <%= select_tag("staff_filter",
+          options_from_collection_for_select(current_user.staff_list(nil, true), :id, :full_name, params[:staff_filter]),
+          :prompt => t(".select.staff")
+          ) %>&nbsp;
+
+		<input type="text" id="start_date_filter" class="date_picker" name="start_date_filter" value="<%= params[:start_date_filter] %>" placeholder="<%= t(".select.start_date") %>">
+
+		<input type="text" id="end_date_fitler" class="date_picker" name="end_date_filter" value="<%= params[:end_date_filter] %>" placeholder="<%= t(".select.end_date") %>">
+  </div>
+</h4>
+
+<script>
+	$('#start_date_filter').datepicker();
+	$('#end_date_fitler').datepicker();
+
+  Appointments.filter_setup("<%= list_account_events_path %>");
+</script>

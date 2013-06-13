@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= @company.name.humanize %></title>
+
+    <!-- customer booking stylesheets -->
+    <%= stylesheet_link_tag "customer_booking" %>
+    <%= stylesheet_link_tag "application" %>
+
+    <!-- Application javascripts -->
+    <%= javascript_include_tag "application" %>
+
+    <%= javascript_include_tag "libs/tabber" %>
+
+    <%= csrf_meta_tag %>
+    <%= favicon_link_tag 'clock_preferences.ico' %>
+
+    <%= stylesheet_link_tag "http://fonts.googleapis.com/css?family=PT+Sans" %>
+
+    <!--[if lte IE 8]>
+      <link rel="stylesheet" href="/assets/gebo_admin_1.4/css/ie.css" />
+      <script src="/assets/gebo_admin_1.4/js/ie/html5.js"></script>
+      <script src="/assets/gebo_admin_1.4/js/ie/respond.min.js"></script>
+    <![endif]-->
+
+    <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
+    <link href="http://code.google.com/apis/maps/documentation/javascript/examples/default.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript">
+
+    /* Optional: Temporarily hide the "tabber" class so it does not "flash"
+       on the page as plain HTML. After tabber runs, the class is changed
+       to "tabberlive" and it will appear. */
+
+    document.write('<style type="text/css">.tabber{display:none;}<\/style>');
+    </script>
+
+    <style type="text/css">
+          #map_canvas {
+            height: 200px;
+            width: 200px;
+            border: 1px solid #333;
+            margin-top: 0.6em;
+          }
+    </style>
+
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+      var geocoder;
+      var map;
+      function initialize() {
+    		var address = "<%= @branch.zipcode rescue "120379" %>";
+
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-34.397, 150.644);
+        var myOptions = {
+          zoom: 18,
+          center: latlng,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+
+    		geocoder.geocode( { 'address': address}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      }
+
+      function codeAddress(id_name, link) {
+    		var address = document.getElementById(id_name).name; //.value; // = "40 toh guan rd east, singapore";
+    		if (!link) {
+    			address = document.getElementById(id_name).value;
+    		}
+    		//alert("Address: " + address);
+        geocoder.geocode( { 'address': address}, function(results, status) {
+    			if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+          } else {
+            alert("Geocode was not successful for the following reason: " + status);
+          }
+        });
+      }
+    </script>
+  </head>  
+  <body>
+    <div id="loading_layer" style="display:none"><%= image_tag("gebo_admin_1.4/img/ajax_loader.gif")%></div>
+
+    <div>
+      <!-- main content -->
+      <div id="contentwrapper">
+        <div id="customer_booking_wrapper">
+          <%#= render :partial => "company_info_panel" %>
+          <%= yield %>
+
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
